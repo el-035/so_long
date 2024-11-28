@@ -1,16 +1,17 @@
 CC = cc
 
-CFILES = 
+CFILES = main.c
 
 #creates object files from the c files given
 OFILES = $(CFILES:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
+MLX = -I./minilibx-linux -L./minilibx-linux -lmlx -lXext -lX11
 NAME = so_long
 
 # this sets the rule to compile all c files into o files $< is the prerequisite (aka the c files) and $@ is the target (aka the o files)
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@  
 
 # all compiles all the c files into o files and archive them into libft.a
 all: $(NAME)

@@ -1,5 +1,5 @@
 #include "mlx.h"
-#include<stdlib.h>
+#include"so_long.h"
 
 int	main(void)
 {
@@ -7,9 +7,9 @@ int	main(void)
 	void	*window;
 
 	mlx_ptr = mlx_init ();
-	window = mlx_new_window(mlx_ptr, 1000, 1000, "test");
+	window = mlx_new_window(mlx_ptr, 1920, 1080, "test");
 	if (!window)
 		return 0;
 	mlx_loop(mlx_ptr);
-	mlx_destroy_window(mlx_ptr, window);
+	//mlx_destroy_window(mlx_ptr, window);
 }
