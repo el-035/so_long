@@ -1,5 +1,5 @@
 #include <mlx.h>
-
+//test to see the commit
 int main (void)
 {
   void *mlx_ptr;
