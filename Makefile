@@ -34,3 +34,6 @@ fclean: clean
 
 #to rebuild the whole project after cleaning everything
 re: fclean all
+
+#tells make that all, clean, re, and fclean should always be treated as commands and not as files to be created.
+.PHONY: all clean re fclean
