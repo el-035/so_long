@@ -18,10 +18,10 @@ char	*read_content(int fd, char *temp)
 	int			bytes;
 
 	bytes = 1;
-	buffer = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+	buffer = (char *)ft_calloc_gnl((BUFFER_SIZE + 1), sizeof(char));
 	if (!buffer)
 		return (free(temp), temp = NULL, NULL);
-	while (bytes > 0 && !ft_strchr(buffer, '\n'))
+	while (bytes > 0 && !ft_strchr_gnl(buffer, '\n'))
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes == -1)
@@ -29,7 +29,7 @@ char	*read_content(int fd, char *temp)
 		buffer[bytes] = '\0';
 		if (bytes == 0)
 			break ;
-		temp = ft_strjoin(temp, buffer);
+		temp = ft_strjoin_gnl(temp, buffer);
 		if (!temp)
 			return (free(buffer), NULL);
 	}
@@ -51,7 +51,7 @@ char	*current_line(char *temp)
 		len++;
 	if (temp[len] == '\n')
 		len++;
-	line = (char *) ft_calloc((len + 1), sizeof(char));
+	line = (char *) ft_calloc_gnl((len + 1), sizeof(char));
 	if (!line)
 		return (NULL);
 	while (++i < len)
@@ -66,9 +66,9 @@ char	*saveline(char *str)
 	char	*nl;
 
 	len = 0;
-	nl = ft_strchr(str, '\n');
+	nl = ft_strchr_gnl(str, '\n');
 	if (!nl)
-		return (free(str), str = NULL, ft_strdup(""));
+		return (free(str), str = NULL, ft_strdup_gnl(""));
 	nl++;
 	while (nl[len])
 		len++;

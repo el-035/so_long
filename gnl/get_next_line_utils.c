@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc_gnl(size_t nmemb, size_t size)
 {
 	unsigned char	*mem;
 	size_t			temp;
@@ -30,7 +30,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return ((void *)mem);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*ft_strchr_gnl(char *s, int c)
 {
 	int	i;
 
@@ -48,7 +48,7 @@ char	*ft_strchr(char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	char	*join;
 	int		len1;
@@ -75,7 +75,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (free(s1), s1 = NULL, join);
 }
 
-char	*ft_strdup(char *s)
+char	*ft_strdup_gnl(char *s)
 {
 	int		i;
 	char	*str;
@@ -85,7 +85,7 @@ char	*ft_strdup(char *s)
 	len = 0;
 	while (s[len])
 		len++;
-	str = (char *) ft_calloc((len + 1), sizeof(char));
+	str = (char *) ft_calloc_gnl((len + 1), sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	while (s[i])

@@ -21,9 +21,9 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_strchr(char *s, int c);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strdup(char *s);
-void	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_strchr_gnl(char *s, int c);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*ft_strdup_gnl(char *s);
+void	*ft_calloc_gnl(size_t nmemb, size_t size);
 
 #endif
