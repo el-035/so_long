@@ -1,67 +1,86 @@
+#include"so_long.h"
+#include "libft.h"  
+#include <stdio.h>	//delete
 //validate map
 	//only valid charachters								/done to test
     //all lines same len									/done
     //walls around											/done to test
-    //valid path (flood fill??)
+    //valid path (flood fill??) to exit and collectibles
 
-int wall_check_hor(char **map, int lc)	//	chnage to void and put error 
+int	line_len_check(t_map data)
 {
 	int	i;
-	int	j;
+	int len;
 
 	i = 0;
-	j = 0;
-	while (map[i][j] != '\n')
+	len = 0;
+	while(i < data.l_count)
 	{
-		if (map[i][j] != '1')
+		if (ft_strchr((const char *) data.map[i], '\n') == NULL)
+			len = ft_strlen((const char *) data.map[i]);
+		else
+			len = ft_strlen((const char *) data.map[i]) - 1;
+		if (len != data.l_len)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int wall_check_hor(t_map data)	//	chnage to void and put error 
+{
+	int	j;
+
+	j = 0;
+	while (data.map[0][j] && data.map[0][j] != '\n')
+	{
+		if (data.map[0][j] != '1')
 			return 0;
 		j++;
 	}
 	j = 0;
-	while (map[lc][j] != '\n')
+	while (data.map[data.l_count - 1][j] && data.map[data.l_count - 1][j] != '\n')
 	{
-		if (map[lc][j] != '1')
+		if (data.map[data.l_count - 1][j] != '1')
 			return 0;
 		j++;
 	}
 	return 1;
 }
 
-int wall_check_ver(char **map, int lc)	//	chnage to void and put error 
+int wall_check_ver(t_map data)	//	chnage to void and put error 
 {
 	int	i;
-	int	len;
 
 	i = 0;
-	len = ft_strlen((const char *) map[i]) - 1;
-	while (i <= lc)
+	while (i < data.l_count)
 	{
-		if (map[i][0] != '1')
+		if (data.map[i][0] != '1')
 			return 0;
 		i++;
 	}
 	i = 0;
-	while (i <= lc)
+	while (i < data.l_count)
 	{
-		if (map[i][len] != '1')
+		if (data.map[i][data.l_len - 1] != '1')
 			return 0;
 		i++;
 	}
 	return 1;
 }
 
-int	char_check(char **map, int lc)	//	chnage to void and put error 
+int	char_check(t_map data)	//	chnage to void and put error 
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while(i <= lc)
+	while(i < data.l_count)
 	{
-		while (map[i][j] != '\n')
+		while (data.map[i][j] && data.map[i][j] != '\n')
 		{
-			if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'P' && map[i][j] != 'C' && map[i][j] != 'E')
+			if (data.map[i][j] != '1' && data.map[i][j] != '0' && data.map[i][j] != 'P' && data.map[i][j] != 'C' && data.map[i][j] != 'E')
 				return (0);
 			j++;
 		}
@@ -69,4 +88,3 @@ int	char_check(char **map, int lc)	//	chnage to void and put error
 	}
 	return (1);
 }
-

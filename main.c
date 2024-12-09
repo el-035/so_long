@@ -2,6 +2,12 @@
 #include"so_long.h"
 
 #include<stdio.h> //change printfs to ft_printf
+
+/*
+check that map ends in .ber and only 2 args
+*/
+
+
 typedef struct s_data
 {
 	void	*mlx;

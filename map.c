@@ -14,79 +14,92 @@
     //all lines same len									/done
     //walls around
     //valid path (flood fill??)
-void wall_check(char **map, int lc)
-{
 
-}
 
-int	line_count_len_validation(int fd)	//result could be put in a struct
+int	line_count(int fd, t_map data)	//result could be put in a struct
 {
-	int 	lc;
-	size_t 	len;
 	char	*line;
 	
-    lc = 0;
-	len = 0;
+    data.l_count = 0;
 	line = get_next_line(fd);
 	if (!line)
-		return (0);
-	len = ft_strlen((const char*) line);
+		return (0);		//error
     while(line != NULL)
 	{
+		data.l_count++;
 		line = get_next_line(fd);
 		if (!line)
 			break ;				//protection?
-		if (ft_strlen((const char*) line) != len)		//it breaks if map.ber has no nl at the end
-			return (0); 		//ERROR map not valid
-		lc++;
 	}
-    return (lc);
+	return (data.l_count);
 }
 
-char **convert_map(int fd, int lc) //before calling this fd must be closed and opened again
+char **convert_map(int fd, t_map data) //before calling this fd must be closed and opened again
 {
-	char	**map;
-	char	*line;
-	int		i;
-	
+	int	i;
+
 	i = 0;
-	map = (char**)malloc(lc * sizeof(char *));
-	if (!map)
+	data.map = (char**)malloc((data.l_count) * sizeof(char *));
+	if (!data.map)
 		return (NULL);
-	while(i <= lc)
+	while(i <= data.l_count)
 	{
-		line = get_next_line(fd);
-		if (!line)
-			return (NULL);
-		map[i] = ft_strdup(line);		//ft_strdup
-		if (!map[i])
-			return (NULL);
+		data.map[i] = get_next_line(fd);
+		if (!data.map[i])
+			break;
 		i++;
 	}
-	return (map);
+	return (data.map);
 }
 
-char **map()	//takes argv[1]
+int	validation(t_map data)
 {
-	char	**map;
+	if (line_len_check(data) == 0)
+		return (0); //Error message invalid map
+	if (wall_check_hor(data) == 0)
+		return (0); //Error message invalid map
+	if (char_check(data) == 0)
+		return (0); //Error message invalid map
+	if (wall_check_ver(data) == 0)
+		return (0); //Error message invalid map
+}
+int line_len(t_map data)
+{
+	if (ft_strchr((const char *) data.map[0], '\n') == NULL)
+		data.l_len = ft_strlen((const char *) data.map[0]);
+	else
+		data.l_len = ft_strlen((const char *) data.map[0]) - 1;
+	printf("len:%d\n", data.l_len);
+	return (data.l_len);
+}
+
+char **map(t_map data)	//takes argv[1]
+{
 	int		fd;
-	int		lc;
+
 	fd = open("map.ber", O_RDONLY);	//map is the parameter
-	//fd check
-	lc = line_count_len_validation(fd);
-	if (lc == 0)
+	if (fd <= 0)
+		return NULL;		//handle error
+	data.l_count = line_count(fd, data);
+	if (data.l_count == 0)
 		return (NULL);					//handle error
 	close (fd);
 	fd = open("map.ber", O_RDONLY);		//map is the parameter
-	map = convert_map(fd, lc);
-	if (!map)
+	data.map = convert_map(fd, data);
+	if (!data.map)
 		return (NULL);
-	// validate map function
-
-	return (map);
+	data.l_len = line_len(data);
+	validation(data);
+	return (data.map);
 }
 
 int main ()
 {
-	map();
+	t_map *data;
+	data = (t_map *) malloc(sizeof(t_map));
+	if (!data)
+		return 0;
+	data->map = map(*data);
+	if(!data->map)
+		return 0;
 }
