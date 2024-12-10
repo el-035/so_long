@@ -31,6 +31,7 @@ int wall_check_hor(t_map data);
 int wall_check_ver(t_map data);
 int	char_check(t_map data);
 int	line_len_check(t_map data);
+int more_char_check(t_map data);
 //path validation
 char	**copy_map(t_map data);
 t_path	find_p(t_map data, t_path path);

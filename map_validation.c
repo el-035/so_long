@@ -73,18 +73,54 @@ int	char_check(t_map data)	//	chnage to void and put error
 {
 	int	i;
 	int	j;
+    int p;
 
 	i = 0;
-	j = 0;
+    p = 0;
 	while(i < data.l_count)
 	{
-		while (data.map[i][j] && data.map[i][j] != '\n')
+		j = 0;
+        while (data.map[i][j] && data.map[i][j] != '\n')
 		{
 			if (data.map[i][j] != '1' && data.map[i][j] != '0' && data.map[i][j] != 'P' && data.map[i][j] != 'C' && data.map[i][j] != 'E')
 				return (0);
+            if (data.map[i][j] == 'P')
+                p++;
 			j++;
 		}
 		i++;
 	}
-	return (1);
+    if (p != 1)
+        return (0);
+    else
+	    return (1);
+}
+
+int more_char_check(t_map data)
+{
+	int	i;
+	int	j;
+    int c;
+    int e;
+
+	i = 0;
+    c = 0;
+    e = 0;
+	while(i < data.l_count)
+	{
+		j = 0;
+        while (data.map[i][j] && data.map[i][j] != '\n')
+		{
+			if (data.map[i][j] == 'E')
+                e++;
+            if (data.map[i][j] == 'C')
+                c++;
+			j++;
+		}
+		i++;
+	}
+    if (e != 1 || c < 1)
+        return (0);
+    else
+	    return (1);
 }

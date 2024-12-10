@@ -8,7 +8,7 @@ check that map ends in .ber and only 2 args
 */
 
 
-typedef struct s_data
+typedef struct s_mlx
 {
 	void	*mlx;
 	void	*window;
@@ -17,9 +17,9 @@ typedef struct s_data
 	void	*shroom_image;
 	void 	*backgroung_image;
 
-}	t_mlx_data;
+}	t_mlx;
 
-int	esc(int key, t_mlx_data *data)
+int	esc(int key, t_mlx *data)
 {
 	/* int x = 0;
 	int y = 0; */
@@ -113,7 +113,7 @@ int	esc(int key, t_mlx_data *data)
 	return (0);
 }
 
-void background_grass(t_mlx_data data)
+void background_grass(t_mlx data)
 {
 	int x = 0;
 	int y = 0;
@@ -128,7 +128,7 @@ void background_grass(t_mlx_data data)
 
 int	main(void)
 {
-	t_mlx_data data;
+	t_mlx data;
 	char *filename = "./shroomie.xpm";
 	int width;
 	int height;

@@ -60,9 +60,10 @@ int	validation(t_map data)
 		return (0); //Error message invalid map
 	if (char_check(data) == 0)                      //also check that E and P only appear once
 		return (0); //Error message invalid map
-	if (wall_check_ver(data) == 0)
+	if (more_char_check(data) == 0)                      //also check that E and P only appear once
+		return (0);
+    if (wall_check_ver(data) == 0)
 		return (0); //Error message invalid map
-    
     if (path_validation(data) == 0)
         return (0);
     else
