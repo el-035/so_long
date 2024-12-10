@@ -34,7 +34,8 @@ int	line_len_check(t_map data);
 //path validation
 char	**copy_map(t_map data);
 t_path	find_p(t_map data, t_path path);
-void	fill_path(char **map_cpy, int x, int y);
-int	valid_path(t_map data);
+void	fill_path(t_map data, t_path path, int x, int y);
+int	path_validation(t_map data);
+int is_valid_path(t_map data, t_path path);
 
 #endif

@@ -2,14 +2,6 @@
 #include "libft.h"  
 #include <stdio.h>	//delete
 
-//copy of the map
-//look for p
-//turn p into 1
-//recursively call ft that turns 0 into 1 for location up down lef right
-// when its over strchr E C
-// if not found return 1
-//else eroor map not valid
-
 char	**copy_map(t_map data)
 {
 	char	**map_cpy;
@@ -19,67 +11,68 @@ char	**copy_map(t_map data)
 	if (!map_cpy)
 		return (0); //malloc error
 	y = 0;
-	while(y <= data.l_count)
+	while(y < data.l_count)
 	{
 		map_cpy[y] = ft_strdup((const char *) data.map[y]);
+        if (!map_cpy[y])
+            return (NULL);      //handle error
 		y++;
 	}
 	return (map_cpy);
 }
 
+int is_valid_path(t_map data, t_path path)
+{
+    path.y = 0;
+	while(path.y < data.l_count)
+	{
+		path.x = 0;
+		while(path.x < data.l_len)
+		{
+			if (path.map_cpy[path.y][path.x] == 'C' || path.map_cpy[path.y][path.x] == 'E')
+				return (0);
+			path.x++;
+		}
+		path.y++;
+	}
+    return (1);
+}
+
 t_path	find_p(t_map data, t_path path)
 {
-	path.x = 0;
-
-	while(path.x <= data.l_len)
+	path.y = 0;
+	while(path.y < data.l_count)
 	{
-		path.y = 0;
-		while(path.y <= data.l_count)
+		path.x = 0;
+		while(path.x < data.l_len)
 		{
-			if (path.map_cpy[path.x][path.y] == 'P')
-			{
-				path.map_cpy[path.x][path.y] = '1';
+			if (path.map_cpy[path.y][path.x] == 'P')
 				return (path);
-			}
-			path.y++;
+			path.x++;
 		}
-		path.x++;
+		path.y++;
 	}
 	return (path);
 }
-void	fill_path(char **map_cpy, int x, int y)
+void	fill_path(t_map data, t_path path, int x, int y)
 {
-	//if location is 1 return
-	//else turn into 1 
-	//calla agin in all other locations
-	if (y < 0 || x < 0 || map_cpy[y] == NULL || map_cpy[y][x] == '\0' || map_cpy[y][x] == '\n')
+    if (y < 0 || x < 0 || y >= data.l_count || x >= data.l_len || path.map_cpy[y][x] == '1')
 		return ;
-	if (map_cpy[x][y] != '1')
-	{
-		map_cpy[x][y] = '1';
-		fill_path(map_cpy, x, y + 1);
-		fill_path(map_cpy, x, y - 1);
-		fill_path(map_cpy, x + 1, y);
-		fill_path(map_cpy, x - 1, y);
-	}
-	else
-		return ;
+	path.map_cpy[y][x] = '1';
+	fill_path(data, path, x + 1, y);
+	fill_path(data, path, x - 1, y);
+	fill_path(data, path, x, y + 1);
+	fill_path(data, path, x, y - 1);
 }
-int	valid_path(t_map data)
+
+int	path_validation(t_map data)
 {
 	t_path	*path;
-	path = (t_path *) malloc(sizeof(t_map));
+	path = (t_path *) malloc(sizeof(t_path));
 	if (!path)
 		return 0; //error malloc
-	path->map_cpy = copy_map(data); //seg faults here
-	printf("test\n");
+	path->map_cpy = copy_map(data);
 	*path = find_p(data, *path);
-	fill_path(path->map_cpy, path->x, path->y);
-	
-	int i = 0;
-	while (i <= data.l_count)
-	{
-		printf("%s", path->map_cpy[i++]);
-	}
-	return 1;
+    fill_path(data, *path, path->x, path->y);
+	return (is_valid_path(data, *path));
 }

@@ -63,9 +63,11 @@ int	validation(t_map data)
 	if (wall_check_ver(data) == 0)
 		return (0); //Error message invalid map
     
-    valid_path(data);
-
-    return 0;
+    if (path_validation(data) == 0)
+        return (0);
+    else
+        (printf("Map is valid yay!\n"));
+    return 1;
     //call path validation
     //valid_path(data);
 }
