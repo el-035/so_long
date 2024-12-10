@@ -15,6 +15,21 @@ typedef struct s_path
 	int		x;
 }	t_path;
 
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*window;
+	int		wind_x;
+	int		wind_y;
+	void	*shroom_image;
+	void 	*backgroung;
+    void    *obstacle;
+    void    *end_no;
+    void    *end_yes;
+    void    *collectible;
+
+}	t_mlx;
+
 //all stuff to include
 #include <stdlib.h>
 //#include <mlx.h>
@@ -24,19 +39,21 @@ typedef struct s_path
 
 //all function prototypes
 
-
+//events
+int	esc(int key, t_mlx *data);
 
 //map validation
-int wall_check_hor(t_map data);
-int wall_check_ver(t_map data);
+int	wall_check_hor(t_map data);
+int	wall_check_ver(t_map data);
 int	char_check(t_map data);
 int	line_len_check(t_map data);
-int more_char_check(t_map data);
+int	more_char_check(t_map data);
+
 //path validation
 char	**copy_map(t_map data);
 t_path	find_p(t_map data, t_path path);
 void	fill_path(t_map data, t_path path, int x, int y);
-int	path_validation(t_map data);
-int is_valid_path(t_map data, t_path path);
+int		path_validation(t_map data);
+int		is_valid_path(t_map data, t_path path);
 
 #endif
