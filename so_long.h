@@ -8,6 +8,12 @@ typedef struct s_map
 	int		l_len;
 }	t_map;
 
+typedef struct s_path
+{
+	char	**map_cpy;
+	int		y;
+	int		x;
+}	t_path;
 
 //all stuff to include
 #include <stdlib.h>

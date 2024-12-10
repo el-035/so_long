@@ -58,10 +58,13 @@ int	validation(t_map data)
 		return (0); //Error message invalid map
 	if (wall_check_hor(data) == 0)
 		return (0); //Error message invalid map
-	if (char_check(data) == 0)
+	if (char_check(data) == 0)                      //also check that E and P only appear once
 		return (0); //Error message invalid map
 	if (wall_check_ver(data) == 0)
 		return (0); //Error message invalid map
+
+    //call path validation
+    //valid_path(data);
 }
 int line_len(t_map data)
 {
@@ -98,7 +101,7 @@ int main ()
 	t_map *data;
 	data = (t_map *) malloc(sizeof(t_map));
 	if (!data)
-		return 0;
+		return 0; //error malloc
 	data->map = map(*data);
 	if(!data->map)
 		return 0;
