@@ -62,7 +62,10 @@ int	validation(t_map data)
 		return (0); //Error message invalid map
 	if (wall_check_ver(data) == 0)
 		return (0); //Error message invalid map
+    
+    valid_path(data);
 
+    return 0;
     //call path validation
     //valid_path(data);
 }
@@ -72,7 +75,6 @@ int line_len(t_map data)
 		data.l_len = ft_strlen((const char *) data.map[0]);
 	else
 		data.l_len = ft_strlen((const char *) data.map[0]) - 1;
-	printf("len:%d\n", data.l_len);
 	return (data.l_len);
 }
 

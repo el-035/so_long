@@ -13,7 +13,6 @@
 char	**copy_map(t_map data)
 {
 	char	**map_cpy;
-	int		x;
 	int		y;
 
 	map_cpy = (char **) malloc(data.l_count * sizeof(char *));
@@ -39,7 +38,7 @@ t_path	find_p(t_map data, t_path path)
 		{
 			if (path.map_cpy[path.x][path.y] == 'P')
 			{
-				path.map_cpy[path.x][path.y] == '1';
+				path.map_cpy[path.x][path.y] = '1';
 				return (path);
 			}
 			path.y++;
@@ -57,7 +56,7 @@ void	fill_path(char **map_cpy, int x, int y)
 		return ;
 	if (map_cpy[x][y] != '1')
 	{
-		map_cpy[x][y] == '1';
+		map_cpy[x][y] = '1';
 		fill_path(map_cpy, x, y + 1);
 		fill_path(map_cpy, x, y - 1);
 		fill_path(map_cpy, x + 1, y);
@@ -69,17 +68,18 @@ void	fill_path(char **map_cpy, int x, int y)
 int	valid_path(t_map data)
 {
 	t_path	*path;
-
 	path = (t_path *) malloc(sizeof(t_map));
 	if (!path)
 		return 0; //error malloc
-	path->map_cpy = copy_map(data);
+	path->map_cpy = copy_map(data); //seg faults here
+	printf("test\n");
 	*path = find_p(data, *path);
-	fill_path(*path->map_cpy, path->x, path->y);
+	fill_path(path->map_cpy, path->x, path->y);
 	
 	int i = 0;
 	while (i <= data.l_count)
 	{
 		printf("%s", path->map_cpy[i++]);
 	}
+	return 1;
 }
