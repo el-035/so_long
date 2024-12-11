@@ -57,10 +57,10 @@ void window_main(void)
     t_map   map_data;
 	data.mlx = mlx_init ();
 	if (!data.mlx)
-		return (0);
+		return ;
 	data.window = mlx_new_window(data.mlx, 1152, 480, "so_long"); //considering each block to be 48x48 itll be 24*12
 	if (!data.window)
-		return (0);		//destroy window function, free stuff, return error
+		return ;		//destroy window function, free stuff, return error
 	
     data = save_images(data);
 	data = initialise_stuff(data);

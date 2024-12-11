@@ -1,9 +1,9 @@
 #include"so_long.h"
 
-int main (int argc, char **argv)	//take map as arg
+int main (void)	//take map as arg
 {
-	if (argc != 2)
-		return (0);		//error
+	/* if (argc != 2)
+		return (0); */		//error
 	//check that all files that need to be opened can be opened
 		//all xpm
 		//all maps

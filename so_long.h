@@ -4,13 +4,13 @@
 //all stuff to include
 #include <stdlib.h>
 //#include <mlx.h>
-#include "mlx.h"    //delete and put the previous one
+#include "minilibx-linux/mlx.h"    //delete and put the previous one
 #include <math.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include "libft/libft.h"
-#include "get_next_line.h"
-#include "ft_printf.h"
+#include "gnl/get_next_line.h"
+#include "ft_printf/ft_printf.h"
 
 
 typedef struct s_map
