@@ -2,33 +2,33 @@
 
 void    move_up(t_mlx *data)
 {
-    mlx_put_image_to_window(data->mlx, data->window, data->backgroung, data->shroom_width, data->shroom_height);
+    mlx_put_image_to_window(data->mlx, data->window, data->backgroung, data->tile_width, data->tile_height);
 	ft_printf("moves: %d\n", data->moves++);
-	data->shroom_height = data->shroom_height - 48;
-	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, data->shroom_width, data->shroom_height);
+	data->tile_height = data->tile_height - 48;
+	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, data->tile_width, data->tile_height);
 }
 void    move_down(t_mlx *data)
 {
-    mlx_put_image_to_window(data->mlx, data->window, data->backgroung, data->shroom_width, data->shroom_height);
+    mlx_put_image_to_window(data->mlx, data->window, data->backgroung, data->tile_width, data->tile_height);
 	ft_printf("moves: %d\n", data->moves++);
-	data->shroom_height = data->shroom_height + 48;
-	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, data->shroom_width, data->shroom_height);
+	data->tile_height = data->tile_height + 48;
+	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, data->tile_width, data->tile_height);
 }
 
 void    move_right(t_mlx *data)
 {
-    mlx_put_image_to_window(data->mlx, data->window, data->backgroung, data->shroom_width, data->shroom_height);
+    mlx_put_image_to_window(data->mlx, data->window, data->backgroung, data->tile_width, data->tile_height);
 	ft_printf("moves: %d\n", data->moves++);	
-	data->shroom_width = data->shroom_width + 48;
-	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, data->shroom_width, data->shroom_height);
+	data->tile_width = data->tile_width + 48;
+	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, data->tile_width, data->tile_height);
 }
 
 void    move_left(t_mlx *data)
 {
-    mlx_put_image_to_window(data->mlx, data->window, data->backgroung, data->shroom_width, data->shroom_height);
+    mlx_put_image_to_window(data->mlx, data->window, data->backgroung, data->tile_width, data->tile_height);
 	ft_printf("moves: %d\n", data->moves++);
-	data->shroom_width = data->shroom_width - 48;
-	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, data->shroom_width, data->shroom_height);
+	data->tile_width = data->tile_width - 48;
+	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, data->tile_width, data->tile_height);
 }
 
 int events(int key, t_mlx *data)

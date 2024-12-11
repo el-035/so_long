@@ -1,23 +1,23 @@
 #include"so_long.h"
-
+#include <stdio.h>
 //first get number of lines (close and open file again)		/done
 //convert map into a 2d array								/done
-    //remove nl at the end of each line						necessary?? would help fix the issue when map has no nl at the end
+	//remove nl at the end of each line						necessary?? would help fix the issue when map has no nl at the end
 //validate map
 	//only valid charachters
-    //all lines same len									/done
-    //walls around
-    //valid path (flood fill??)
+	//all lines same len									/done
+	//walls around
+	//valid path (flood fill??)
 
 int	line_count(int fd, t_map data)	//result could be put in a struct
 {
 	char	*line;
 	
-    data.l_count = 0;
+	data.l_count = 0;
 	line = get_next_line(fd);
 	if (!line)
 		return (0);		//error
-    while(line != NULL)
+	while(line != NULL)
 	{
 		data.l_count++;
 		line = get_next_line(fd);
@@ -51,19 +51,18 @@ int	validation(t_map data)
 		return (0); //Error message invalid map
 	if (wall_check_hor(data) == 0)
 		return (0); //Error message invalid map
-	if (char_check(data) == 0)                      //also check that E and P only appear once
+	if (char_check(data) == 0)	  //also check that E and P only appear once
 		return (0); //Error message invalid map
-	if (more_char_check(data) == 0)                      //also check that E and P only appear once
+	if (more_char_check(data) == 0)	  //also check that E and P only appear once
 		return (0);
-    if (wall_check_ver(data) == 0)
+	if (wall_check_ver(data) == 0)
 		return (0); //Error message invalid map
-    if (path_validation(data) == 0)
-        return (0);
-    else
-        (printf("Map is valid yay!\n"));
-    return 1;
-    //call path validation
-    //valid_path(data);
+	if (path_validation(data) == 0)
+	return (0);
+	else
+		return 1;
+	//call path validation
+	//valid_path(data);
 }
 int line_len(t_map data)
 {
@@ -74,33 +73,36 @@ int line_len(t_map data)
 	return (data.l_len);
 }
 
-char **map(t_map data)	//takes argv[1]
+void	map(t_map *data)	//takes argv[1]
 {
 	int		fd;
 
 	fd = open("map.ber", O_RDONLY);	//map is the parameter
 	if (fd <= 0)
-		return NULL;		//handle error
-	data.l_count = line_count(fd, data);
-	if (data.l_count == 0)
-		return (NULL);					//handle error
+	{
+        perror("Error opening file");
+        exit(1);
+    }							//handle error
+	data->l_count = line_count(fd, *data);
+	if (data->l_count == 0)
+		return ;					//handle error
 	close (fd);
 	fd = open("map.ber", O_RDONLY);		//map is the parameter
-	data.map = convert_map(fd, data);
-	if (!data.map)
-		return (NULL);
-	data.l_len = line_len(data);
-	validation(data);
-	return (data.map);
+	data->map = convert_map(fd, *data);
+	if (!data->map)
+		return ;
+	data->l_len = line_len(*data);
+	validation(*data);
 }
 
-int main ()
+t_map beginning (void)
 {
 	t_map *data;
 	data = (t_map *) malloc(sizeof(t_map));
 	if (!data)
-		return 0; //error malloc
-	data->map = map(*data);
+		exit (1); //error malloc
+	map(data);
 	if(!data->map)
-		return 0;
+		exit (1);
+	return (*data);
 }

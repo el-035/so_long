@@ -1,4 +1,4 @@
-#include"so_long.h"
+#include "so_long.h"
 
 t_mlx   save_images(t_mlx data) //fix error messages
 {
@@ -45,14 +45,16 @@ void background_grass(t_mlx data)
 }
 t_mlx	initialise_stuff(t_mlx data)
 {
-	data.shroom_width = 48;		//this is dependent on location of p
-	data.shroom_height = 48;		//this is dependent on location of p
+	data.tile_width = 48;		//this is dependent on location of p
+	data.tile_height = 48;		//this is dependent on location of p
 	data.moves = 1;
 	return (data);
 }
-int	main(void)
+
+void window_main(void)
 {
-	t_mlx data;
+	t_mlx   data;
+    t_map   map_data;
 	data.mlx = mlx_init ();
 	if (!data.mlx)
 		return (0);
@@ -63,7 +65,10 @@ int	main(void)
     data = save_images(data);
 	data = initialise_stuff(data);
 	background_grass(data);
+    map_data = beginning();
 
+    //ft_printf("%s\n", map_data.map[0]);
+    map_parsing(map_data, data);
 	//to get key response
 	mlx_key_hook(data.window, &events, &data);
 	
@@ -72,6 +77,11 @@ int	main(void)
 	
 	mlx_loop(data.mlx);
 	mlx_destroy_image(data.mlx, data.shroom_image);
+    mlx_destroy_image(data.mlx, data.obstacle);
+    mlx_destroy_image(data.mlx, data.end_open);
+    mlx_destroy_image(data.mlx, data.end_closed);
+    mlx_destroy_image(data.mlx, data.collectible);
+    mlx_destroy_image(data.mlx, data.backgroung);
 	mlx_destroy_window(data.mlx, data.window);
 	//mlx_destroy_display(data.mlx);
 	free(data.mlx);
