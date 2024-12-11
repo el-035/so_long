@@ -1,6 +1,18 @@
 # ifndef SO_LONG_H
 # define SO_LONG_H
 
+//all stuff to include
+#include <stdlib.h>
+//#include <mlx.h>
+#include "mlx.h"    //delete and put the previous one
+#include <math.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include "libft.h"
+#include "get_next_line.h"
+#include "ft_printf.h"
+
+
 typedef struct s_map
 {
 	char	**map;
@@ -33,12 +45,7 @@ typedef struct s_mlx
 
 }	t_mlx;
 
-//all stuff to include
-#include <stdlib.h>
-//#include <mlx.h>
-#include <math.h>
-#include <unistd.h>
-#include <fcntl.h>
+
 
 //all function prototypes
 

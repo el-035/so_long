@@ -1,12 +1,5 @@
-#include "mlx.h"
 #include"so_long.h"
 
-#include<stdio.h> //change printfs to ft_printf
-
-/*
-check that map ends in .ber and only 2 args
-also check that all files can be opened such as the xpm for example, map etc
-*/
 t_mlx   save_images(t_mlx data) //fix error messages
 {
     int height;

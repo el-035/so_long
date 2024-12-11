@@ -1,10 +1,4 @@
-//#include "mlx.h"
 #include"so_long.h"
-#include "libft.h"  //add files in the folder
-#include "get_next_line.h"
-
-#include<string.h>          //to delete
-#include <stdio.h>
 
 //first get number of lines (close and open file again)		/done
 //convert map into a 2d array								/done
@@ -14,7 +8,6 @@
     //all lines same len									/done
     //walls around
     //valid path (flood fill??)
-
 
 int	line_count(int fd, t_map data)	//result could be put in a struct
 {

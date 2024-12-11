@@ -1,6 +1,5 @@
 #include"so_long.h"
-#include "libft.h"  
-#include <stdio.h>	//delete
+
 //validate map
 	//only valid charachters								/done to test
     //all lines same len									/done
