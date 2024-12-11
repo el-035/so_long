@@ -7,16 +7,39 @@
 check that map ends in .ber and only 2 args
 also check that all files can be opened such as the xpm for example, map etc
 */
+t_mlx   save_images(t_mlx data) //fix error messages
+{
+    int height;
+    int width;
 
-
+    data.backgroung = mlx_xpm_file_to_image(data.mlx, "images/Grass.xpm", &width, &height);
+    if (!data.backgroung)
+		exit (1);
+    data.shroom_image = mlx_xpm_file_to_image(data.mlx, "images/shroomie.xpm", &width, &height);
+	if (!data.shroom_image)
+		exit (1);
+    data.obstacle = mlx_xpm_file_to_image(data.mlx, "images/obstacle.xpm", &width, &height);
+	if (!data.obstacle)
+		exit (1);
+    data.end_open = mlx_xpm_file_to_image(data.mlx, "images/open_chest.xpm", &width, &height);
+	if (!data.end_open)
+		exit (1);
+    data.end_closed = mlx_xpm_file_to_image(data.mlx, "images/closed_chest.xpm", &width, &height);
+	if (!data.end_closed)
+		exit (1);
+    data.collectible = mlx_xpm_file_to_image(data.mlx, "images/key.xpm", &width, &height);
+    if (!data.collectible)
+		exit (1);
+	return (data);
+}
 
 void background_grass(t_mlx data)
 {
-	int width = 0;
-    int height = 0;
-    data.backgroung = mlx_xpm_file_to_image(data.mlx, "./images/background.xpm", &width, &height);
+	int width;
+    int height;
 
-	while (height < 480)
+	height = 0;    
+    while (height < 480)
 	{
 		width = 0;
 		while(width < 1152)
@@ -27,13 +50,16 @@ void background_grass(t_mlx data)
         height += 48;
 	}
 }
-
+t_mlx	initialise_stuff(t_mlx data)
+{
+	data.shroom_width = 48;		//this is dependent on location of p
+	data.shroom_height = 48;		//this is dependent on location of p
+	data.moves = 1;
+	return (data);
+}
 int	main(void)
 {
 	t_mlx data;
-	char *filename = "./obstacle.xpm";
-	int width;
-	int height;
 	data.mlx = mlx_init ();
 	if (!data.mlx)
 		return (0);
@@ -41,17 +67,15 @@ int	main(void)
 	if (!data.window)
 		return (0);		//destroy window function, free stuff, return error
 	
-	//to put background
+    data = save_images(data);
+	data = initialise_stuff(data);
 	background_grass(data);
 
 	//to get key response
-	mlx_key_hook(data.window, &esc, &data);
+	mlx_key_hook(data.window, &events, &data);
 	
 	//to put the shroom
-	data.shroom_image = mlx_xpm_file_to_image(data.mlx, filename, &width, &height);
-	if (!data.shroom_image)
-		return 0;
-	//mlx_put_image_to_window(data.mlx, data.window, data.shroom_image, 100, 100);
+	
 	
 	mlx_loop(data.mlx);
 	mlx_destroy_image(data.mlx, data.shroom_image);

@@ -1,4 +1,4 @@
-#ifndef SO_LONG_H
+# ifndef SO_LONG_H
 # define SO_LONG_H
 
 typedef struct s_map
@@ -24,9 +24,12 @@ typedef struct s_mlx
 	void	*shroom_image;
 	void 	*backgroung;
     void    *obstacle;
-    void    *end_no;
-    void    *end_yes;
+    void    *end_closed;
+    void    *end_open;
     void    *collectible;
+    int     shroom_width;
+    int     shroom_height;
+    int     moves;
 
 }	t_mlx;
 
@@ -40,7 +43,11 @@ typedef struct s_mlx
 //all function prototypes
 
 //events
-int	esc(int key, t_mlx *data);
+int     events(int key, t_mlx *data);
+void    move_left(t_mlx *data);
+void    move_right(t_mlx *data);
+void    move_down(t_mlx *data);
+void    move_up(t_mlx *data);
 
 //map validation
 int	wall_check_hor(t_map data);
