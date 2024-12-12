@@ -1,4 +1,4 @@
-#include"so_long.h"
+#include "so_long.h"
 
 //2d array of map
 //initialise window size to line len and line count * 48
@@ -8,6 +8,14 @@
 	//x = 0 | lenght = 0
 	//y = 1	| height = 48
 //save coordinates of shroomie
+
+#include<stdio.h>
+void	char_location(t_mlx *data, int x, int y)
+{
+	data->x_char = x * 48;
+	data->y_char = y * 48;	
+	printf("x: %d", data->x_char);
+}
 
 void map_parsing(t_map map_data, t_mlx mlx_data)
 {
@@ -21,7 +29,12 @@ void map_parsing(t_map map_data, t_mlx mlx_data)
 		while(x < map_data.l_len)
 		{
 			if (map_data.map[y][x] == 'P')
+			{	//save coordinates for beginning of game
+				printf("test");
 				mlx_put_image_to_window(mlx_data.mlx, mlx_data.window, mlx_data.shroom_image, (x * 48), (y * 48));
+				char_location(&mlx_data, x, y);
+				printf("x: %d", mlx_data.x_char);
+			}
 			if (map_data.map[y][x] == '1')
 				mlx_put_image_to_window(mlx_data.mlx, mlx_data.window, mlx_data.obstacle, (x * 48), (y * 48));
 			if (map_data.map[y][x] == 'E')
@@ -33,9 +46,3 @@ void map_parsing(t_map map_data, t_mlx mlx_data)
 		y++;
 	}
 }
-
-/* int main (void)
-{
-	beginning (); //main ft for map
-	open_window(); //main ft for window
-} */

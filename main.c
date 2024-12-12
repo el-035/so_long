@@ -1,13 +1,25 @@
 #include"so_long.h"
-
-int main (void)	//take map as arg
+t_map map_main (char *map_file)
 {
-	/* if (argc != 2)
-		return (0); */		//error
+	t_map *data;
+	data = (t_map *) malloc(sizeof(t_map));
+	if (!data)
+		exit (1); //error malloc
+	map(data);
+	if(!data->map)
+		exit (1);
+	
+	return (*data);
+}
+
+int main (int argc, char **argv)	//take map as arg
+{
+	if (argc != 2)
+		return (0);		//error
 	//check that all files that need to be opened can be opened
 		//all xpm
 		//all maps
-	//check map files end in ber
+	//check map files end in ber aka argv 1
 	//initialise all structs   
 	//validate map						ok
 	//open window						ok
@@ -18,7 +30,7 @@ int main (void)	//take map as arg
 			//x button to close
 			//parse the map
 	//destroy everything
-	beginning ();
+	map_main (argv[1]);
 	window_main ();
 
 }

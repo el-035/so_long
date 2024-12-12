@@ -95,14 +95,4 @@ void	map(t_map *data)	//takes argv[1]
 	validation(*data);
 }
 
-t_map beginning (void)
-{
-	t_map *data;
-	data = (t_map *) malloc(sizeof(t_map));
-	if (!data)
-		exit (1); //error malloc
-	map(data);
-	if(!data->map)
-		exit (1);
-	return (*data);
-}
+

@@ -32,8 +32,8 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	void	*window;
-	int		wind_x;
-	int		wind_y;
+	/* int		wind_x;
+	int		wind_y; */
 	void	*shroom_image;
 	void 	*backgroung;
     void    *obstacle;
@@ -43,7 +43,8 @@ typedef struct s_mlx
     int     tile_width;
     int     tile_height;
     int     moves;
-
+    int     x_char;
+    int     y_char;
 }	t_mlx;
 
 
@@ -80,8 +81,8 @@ int		is_valid_path(t_map data, t_path path);
 void map_parsing(t_map map_data, t_mlx mlx_data);
 
 
-//to delete later
-t_map beginning ();
+//to delete or change later
+t_map map_main (char *map_file);
 //int	open_window(void);
 
 #endif
