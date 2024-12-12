@@ -73,11 +73,11 @@ int line_len(t_map data)
 	return (data.l_len);
 }
 
-void	map(t_map *data)	//takes argv[1]
+void	map(t_map *data, char *map_file)	//takes argv[1]
 {
 	int		fd;
 
-	fd = open("map.ber", O_RDONLY);	//map is the parameter
+	fd = open(map_file, O_RDONLY);	//map is the parameter
 	if (fd <= 0)
 	{
         perror("Error opening file");
@@ -87,11 +87,12 @@ void	map(t_map *data)	//takes argv[1]
 	if (data->l_count == 0)
 		return ;					//handle error
 	close (fd);
-	fd = open("map.ber", O_RDONLY);		//map is the parameter
+	fd = open(map_file, O_RDONLY);		//map is the parameter
 	data->map = convert_map(fd, *data);
 	if (!data->map)
 		return ;
 	data->l_len = line_len(*data);
+
 	validation(*data);
 }
 

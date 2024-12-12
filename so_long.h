@@ -3,8 +3,8 @@
 
 //all stuff to include
 #include <stdlib.h>
-//#include <mlx.h>
-#include "minilibx-linux/mlx.h"    //delete and put the previous one
+#include <mlx.h>
+//#include "minilibx-linux/mlx.h"    //delete and put the previous one
 #include <math.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -43,7 +43,7 @@ typedef struct s_mlx
     int     tile_width;
     int     tile_height;
     int     moves;
-    int     x_char;
+    int     x_char;		//coordinates of char at beginning of the game
     int     y_char;
 }	t_mlx;
 
@@ -51,17 +51,17 @@ typedef struct s_mlx
 
 //all function prototypes
 //window
-void window_main(void);
+void window_main(char *map_file);
 t_mlx	initialise_stuff(t_mlx data);
-void background_grass(t_mlx data);
+void background_grass(t_mlx data, t_map map_data);
 t_mlx   save_images(t_mlx data);
 
 //events
-int     events(int key, t_mlx *data);
-void    move_left(t_mlx *data);
-void    move_right(t_mlx *data);
-void    move_down(t_mlx *data);
-void    move_up(t_mlx *data);
+int     events(int key, t_mlx *data, t_map map_data);
+void    move_left(t_mlx *data/* , t_map map_data */);
+void    move_right(t_mlx *data/* , t_map map_data */);
+void    move_down(t_mlx *data/* , t_map map_data */);
+void    move_up(t_mlx *data, t_map map_data);
 
 //map validation
 int	wall_check_hor(t_map data);
@@ -69,6 +69,7 @@ int	wall_check_ver(t_map data);
 int	char_check(t_map data);
 int	line_len_check(t_map data);
 int	more_char_check(t_map data);
+void	map(t_map *data, char *map_file);
 
 //path validation
 char	**copy_map(t_map data);
@@ -78,7 +79,7 @@ int		path_validation(t_map data);
 int		is_valid_path(t_map data, t_path path);
 
 //map parsing
-void map_parsing(t_map map_data, t_mlx mlx_data);
+void map_parsing(t_map map_data, t_mlx *mlx_data);
 
 
 //to delete or change later

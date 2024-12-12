@@ -26,67 +26,28 @@ t_mlx   save_images(t_mlx data) //fix error messages
 	return (data);
 }
 
-void background_grass(t_mlx data)
+void background_grass(t_mlx data, t_map map_data)
 {
 	int width;
     int height;
 
 	height = 0;    
-    while (height < 480)
+    while (height < (map_data.l_count * data.tile_height))
 	{
 		width = 0;
-		while(width < 1152)
+		while(width < (map_data.l_len * data.tile_width))
         {
 			mlx_put_image_to_window(data.mlx, data.window, data.backgroung, width, height);
-            width += 48;
+            width += data.tile_width;
         }
-        height += 48;
+        height += data.tile_height;
 	}
 }
 t_mlx	initialise_stuff(t_mlx data)
 {
 	data.tile_width = 48;		//this is dependent on location of p
-	data.tile_height = 48;		//this is dependent on location of p
+	data.tile_height = 48;		//or maybe its just not
 	data.moves = 1;
 	return (data);
-}
-
-void window_main(void)
-{
-	t_mlx   data;
-    t_map   map_data;
-	data.mlx = mlx_init ();
-	if (!data.mlx)
-		return ;
-	data.window = mlx_new_window(data.mlx, 1152, 480, "so_long"); //considering each block to be 48x48 itll be 24*12
-	if (!data.window)
-		return ;		//destroy window function, free stuff, return error
-	
-    data = save_images(data);
-	data = initialise_stuff(data);
-	background_grass(data);
-    map_data = beginning();
-
-    //ft_printf("%s\n", map_data.map[0]);
-    map_parsing(map_data, data);
-	//to get key response
-	mlx_key_hook(data.window, &events, &data);
-	
-	//to put the shroom
-	
-	
-	mlx_loop(data.mlx);
-	mlx_destroy_image(data.mlx, data.shroom_image);
-    mlx_destroy_image(data.mlx, data.obstacle);
-    mlx_destroy_image(data.mlx, data.end_open);
-    mlx_destroy_image(data.mlx, data.end_closed);
-    mlx_destroy_image(data.mlx, data.collectible);
-    mlx_destroy_image(data.mlx, data.backgroung);
-	mlx_destroy_window(data.mlx, data.window);
-	//mlx_destroy_display(data.mlx);
-	free(data.mlx);
-	free(data.shroom_image);
-	free(data.window);
-	//exit(0);
 }
 
