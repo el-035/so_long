@@ -7,13 +7,13 @@ char	**copy_map(t_map data)
 
 	map_cpy = (char **) malloc(data.l_count * sizeof(char *));
 	if (!map_cpy)
-		return (0); //malloc error
+		errors("Allocation failed");
 	y = 0;
 	while(y < data.l_count)
 	{
 		map_cpy[y] = ft_strdup((const char *) data.map[y]);
         if (!map_cpy[y])
-            return (NULL);      //handle error
+            errors("Allocation failed");
 		y++;
 	}
 	return (map_cpy);
@@ -68,7 +68,7 @@ int	path_validation(t_map data)
 	t_path	*path;
 	path = (t_path *) malloc(sizeof(t_path));
 	if (!path)
-		return 0; //error malloc
+		errors("Allocation failed");
 	path->map_cpy = copy_map(data);
 	*path = find_p(data, *path);
     fill_path(data, *path, path->x, path->y);

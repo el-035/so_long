@@ -1,43 +1,29 @@
 #include"so_long.h"
+
+void	map_input(char *map_file)
+{
+	int i;
+
+	i = ft_strlen(map_file) - 1;
+	if (map_file[i] != 'r' || map_file[i - 1] != 'e' || map_file[i - 2] != 'b' || map_file[i - 3] != '.')
+		errors("Error opening map");
+}
+
 t_map map_main (char *map_file)
 {
-	t_map *data;
+	t_map	*data;
+
 	data = (t_map *) malloc(sizeof(t_map));
 	if (!data)
-		exit (1); //error malloc
+		errors("Allocation failed");
 	map(data, map_file);
-	if(!data->map)
-		exit (1);
+	/* if(!data->map)
+		exit (1); */
 	return (*data);
 }
-/* t_struct pointer_in(t_mlx data, t_map map_data);
-{
-	
-} */
 
-void window_main(char *map_file)
+void	destroy_everything(t_mlx data)
 {
-	t_mlx		data;
-	t_map		map_data;
-	//t_struct	pointer;
-
-	data.mlx = mlx_init ();
-	if (!data.mlx)
-		return ;
-	map_data = map_main(map_file); //initialises the t_map and validates map
-	data = save_images(data);
-	data = initialise_stuff(data, map_data);	//initialise height and width and move count
-	data.window = mlx_new_window(data.mlx, (map_data.l_len * data.tile_width), (map_data.l_count * data.tile_height), "so_long"); //considering each block to be 48x48 itll be 24*12
-	if (!data.window)
-		return ;		//destroy window function, free stuff, return error
-	background_grass(data, map_data);
-	
-	map_parsing(map_data, &data);
-	//pointer = pointer_in(data, map_data);
-	
-	mlx_key_hook(data.window, &events, &data);		//to get key response
-	
-	mlx_loop(data.mlx);
 	mlx_destroy_image(data.mlx, data.shroom_image);
 	mlx_destroy_image(data.mlx, data.obstacle);
 	mlx_destroy_image(data.mlx, data.end_open);
@@ -49,17 +35,40 @@ void window_main(char *map_file)
 	free(data.mlx);
 	free(data.shroom_image);
 	free(data.window);
-	//exit(0);
+	exit (0);
+}
+
+void window_main(char *map_file)
+{
+	t_mlx		data;
+	t_map		map_data;
+	//t_struct	pointer;
+
+	data.mlx = mlx_init ();
+	if (!data.mlx)
+		errors("Allocation failed");	//destroy everything ??
+	map_data = map_main(map_file); //initialises the t_map and validates map
+	data = save_images(data);
+	data = initialise_stuff(data, map_data);	//initialise height and width and move count
+	data.window = mlx_new_window(data.mlx, (map_data.l_len * data.tile_width), (map_data.l_count * data.tile_height), "so_long"); //considering each block to be 48x48 itll be 24*12
+	if (!data.window)
+		errors("Allocation failed");	//destroy window function, free stuff, return error
+	background_grass(data, map_data);
+	
+	map_parsing(map_data, &data);
+	
+	mlx_key_hook(data.window, &events, &data);		//to get key response
+	//close with x button
+	mlx_loop(data.mlx);
+
+	destroy_everything(data);
 }
 
 int main (int argc, char **argv)	//take map as arg
 {
 	if (argc != 2)
-		return (0);		//error
-	//check that all files that need to be opened can be opened
-		//all xpm
-		//all maps
-	//check map files end in ber aka argv 1
+		errors("Invalid number of arguments");
+	map_input(argv[1]);
 	//initialise all structs   
 	
 	window_main (argv[1]);

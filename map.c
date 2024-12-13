@@ -9,14 +9,14 @@
 	//walls around
 	//valid path (flood fill??)
 
-int	line_count(int fd, t_map data)	//result could be put in a struct
+/* int	line_count(int fd, t_map data)	//result could be put in a struct
 {
 	char	*line;
 	
 	data.l_count = 0;
 	line = get_next_line(fd);
 	if (!line)
-		return (0);		//error
+		errors (5);		//error
 	while(line != NULL)
 	{
 		data.l_count++;
@@ -24,45 +24,44 @@ int	line_count(int fd, t_map data)	//result could be put in a struct
 		if (!line)
 			break ;				//protection?
 	}
-	return (data.l_count);
+	return (free (line), data.l_count);
+} */
+int	line_count(int fd)
+{
+	int lc;
+
+    lc = 0;
+	while(get_next_line(fd) != NULL)
+		lc++;
+	return (lc);
 }
 
-char **convert_map(int fd, t_map data) //before calling this fd must be closed and opened again
+char **convert_map(int fd, t_map data)
 {
 	int	i;
 
 	i = 0;
 	data.map = (char**)malloc((data.l_count) * sizeof(char *));
 	if (!data.map)
-		return (NULL);
-	while(i <= data.l_count)
+		errors("Allocation failed");
+	while(i < data.l_count)
 	{
 		data.map[i] = get_next_line(fd);
-		if (!data.map[i])
-			break;
+		if (!data.map[i])               
+			errors("Allocation failed");
 		i++;
 	}
 	return (data.map);
 }
 
-int	validation(t_map data)
+void	validation(t_map data)
 {
-	if (line_len_check(data) == 0)
-		return (0); //Error message invalid map
-	if (wall_check_hor(data) == 0)
-		return (0); //Error message invalid map
-	if (char_check(data) == 0)	  //also check that E and P only appear once
-		return (0); //Error message invalid map
-	if (more_char_check(data) == 0)	  //also check that E and P only appear once
-		return (0);
-	if (wall_check_ver(data) == 0)
-		return (0); //Error message invalid map
-	if (path_validation(data) == 0)
-	return (0);
-	else
-		return 1;
-	//call path validation
-	//valid_path(data);
+	line_len_check(data);
+	wall_check_hor(data);
+    char_check(data);
+    more_char_check(data);
+    wall_check_ver(data);
+    path_validation(data);
 }
 int line_len(t_map data)
 {
@@ -77,23 +76,17 @@ void	map(t_map *data, char *map_file)	//takes argv[1]
 {
 	int		fd;
 
-	fd = open(map_file, O_RDONLY);	//map is the parameter
+	fd = open(map_file, O_RDONLY);
 	if (fd <= 0)
-	{
-        perror("Error opening file");
-        exit(1);
-    }							//handle error
-	data->l_count = line_count(fd, *data);
+        errors("Error opening map");
+	data->l_count = line_count(fd);
 	if (data->l_count == 0)
-		return ;					//handle error
+		print_err("Invalid map\n");					//???
 	close (fd);
-	fd = open(map_file, O_RDONLY);		//map is the parameter
+	fd = open(map_file, O_RDONLY);
 	data->map = convert_map(fd, *data);
 	if (!data->map)
-		return ;
+		errors("Allocation failed");
 	data->l_len = line_len(*data);
-
 	validation(*data);
 }
-
-

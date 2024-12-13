@@ -6,7 +6,7 @@
     //walls around											/done to test
     //valid path (flood fill??) to exit and collectibles
 
-int	line_len_check(t_map data)
+void    line_len_check(t_map data)
 {
 	int	i;
 	int len;
@@ -20,13 +20,12 @@ int	line_len_check(t_map data)
 		else
 			len = ft_strlen((const char *) data.map[i]) - 1;
 		if (len != data.l_len)
-			return (0);
+			print_err("Invalid map\n");
 		i++;
 	}
-	return (1);
 }
 
-int wall_check_hor(t_map data)	//	chnage to void and put error 
+void    wall_check_hor(t_map data)	//	chnage to void and put error 
 {
 	int	j;
 
@@ -34,20 +33,19 @@ int wall_check_hor(t_map data)	//	chnage to void and put error
 	while (data.map[0][j] && data.map[0][j] != '\n')
 	{
 		if (data.map[0][j] != '1')
-			return 0;
+			print_err("Invalid map\n");
 		j++;
 	}
 	j = 0;
 	while (data.map[data.l_count - 1][j] && data.map[data.l_count - 1][j] != '\n')
 	{
 		if (data.map[data.l_count - 1][j] != '1')
-			return 0;
+			print_err("Invalid map\n");
 		j++;
 	}
-	return 1;
 }
 
-int wall_check_ver(t_map data)	//	chnage to void and put error 
+void   wall_check_ver(t_map data)	//	chnage to void and put error 
 {
 	int	i;
 
@@ -55,20 +53,19 @@ int wall_check_ver(t_map data)	//	chnage to void and put error
 	while (i < data.l_count)
 	{
 		if (data.map[i][0] != '1')
-			return 0;
+			print_err("Invalid map\n");
 		i++;
 	}
 	i = 0;
 	while (i < data.l_count)
 	{
 		if (data.map[i][data.l_len - 1] != '1')
-			return 0;
+			print_err("Invalid map\n");
 		i++;
 	}
-	return 1;
 }
 
-int	char_check(t_map data)	//	chnage to void and put error 
+void	char_check(t_map data)	//	chnage to void and put error 
 {
 	int	i;
 	int	j;
@@ -82,7 +79,7 @@ int	char_check(t_map data)	//	chnage to void and put error
         while (data.map[i][j] && data.map[i][j] != '\n')
 		{
 			if (data.map[i][j] != '1' && data.map[i][j] != '0' && data.map[i][j] != 'P' && data.map[i][j] != 'C' && data.map[i][j] != 'E')
-				return (0);
+				print_err("Invalid map\n");
             if (data.map[i][j] == 'P')
                 p++;
 			j++;
@@ -90,12 +87,10 @@ int	char_check(t_map data)	//	chnage to void and put error
 		i++;
 	}
     if (p != 1)
-        return (0);
-    else
-	    return (1);
+        print_err("Invalid map\n");
 }
 
-int more_char_check(t_map data)
+voidmore_char_check(t_map data)
 {
 	int	i;
 	int	j;
@@ -119,7 +114,5 @@ int more_char_check(t_map data)
 		i++;
 	}
     if (e != 1 || c < 1)
-        return (0);
-    else
-	    return (1);
+        print_err("Invalid map\n");
 }
