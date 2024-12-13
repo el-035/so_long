@@ -31,12 +31,16 @@ void	destroy_everything(t_mlx data)
 	mlx_destroy_image(data.mlx, data.collectible);
 	mlx_destroy_image(data.mlx, data.backgroung);
 	mlx_destroy_window(data.mlx, data.window);
-	//mlx_destroy_display(data.mlx);
-	free(data.mlx);
+	mlx_destroy_display(data.mlx);
+/* 	free(data.mlx);
 	free(data.shroom_image);
-	free(data.window);
+	free(data.window); */
 	exit (0);
 }
+/* void	free_stuff(t_map map)
+{
+	free(map.map);
+} */
 
 void window_main(char *map_file)
 {
@@ -54,9 +58,7 @@ void window_main(char *map_file)
 	if (!data.window)
 		errors("Allocation failed");	//destroy window function, free stuff, return error
 	background_grass(data, map_data);
-	
 	map_parsing(map_data, &data);
-	
 	mlx_key_hook(data.window, &events, &data);		//to get key response
 	//close with x button
 	mlx_loop(data.mlx);
@@ -69,16 +71,9 @@ int main (int argc, char **argv)	//take map as arg
 	if (argc != 2)
 		errors("Invalid number of arguments");
 	map_input(argv[1]);
+	
 	//initialise all structs   
 	
 	window_main (argv[1]);
-	//validate map						ok
-	//open window						ok
-		//create image of background	ok
-		//create events					ok
-			//moving 4 directions		ok
-			//esc						ok
-			//x button to close
-			//parse the map
-	//destroy everything
+	
 }

@@ -90,7 +90,7 @@ void	char_check(t_map data)	//	chnage to void and put error
         print_err("Invalid map\n");
 }
 
-voidmore_char_check(t_map data)
+void more_char_check(t_map data)
 {
 	int	i;
 	int	j;

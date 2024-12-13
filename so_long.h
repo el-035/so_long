@@ -19,14 +19,14 @@ typedef struct s_map
 	char	**map;
 	int		l_count;
 	int		l_len;
-}	t_map;
+}			t_map;
 
 typedef struct s_path
 {
 	char	**map_cpy;
 	int		y;
 	int		x;
-}	t_path;
+}			t_path;
 
 typedef struct s_mlx
 {
@@ -48,18 +48,18 @@ typedef struct s_mlx
 	int  y_end;
 	int  collectible_count;
 	int  c_flag;
-}	t_mlx;
+}		t_mlx;
 
 
 //all function prototypes
 //window
-void window_main(char *map_file);
+void	window_main(char *map_file);
 t_mlx	initialise_stuff(t_mlx data, t_map map_data);
-void background_grass(t_mlx data, t_map map_data);
+void	background_grass(t_mlx data, t_map map_data);
 t_mlx   save_images(t_mlx data);
 
 //events
-int  events(int key, t_mlx *data);
+int		events(int key, t_mlx *data);
 void	move_left(t_mlx *data);
 void	move_right(t_mlx *data);
 void	move_down(t_mlx *data);
@@ -82,7 +82,7 @@ int		is_valid_path(t_map data, t_path path);
 
 //map parsing
 void	map_parsing(t_map map_data, t_mlx *mlx_data);
-void	char_location(t_mlx *data, int x, int y/* , t_map map_data */);
+void	char_location(t_mlx *data, int x, int y);
 
 //main
 t_map   map_main (char *map_file);
@@ -92,6 +92,7 @@ void	map_input(char *map_file);
 //game rules
 void	collectibles(t_mlx *data, int x, int y);
 void	end_of_game(t_mlx *data);
+void	close_everything(t_mlx *data);
 
 //error
 void	errors(char *error_msg);
