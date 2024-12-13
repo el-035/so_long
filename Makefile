@@ -1,6 +1,6 @@
 CC = cc
 
-CFILES = main.c events.c map.c path_validation.c window.c map_validation.c map_parsing.c
+CFILES = main.c events.c map.c path_validation.c window.c map_validation.c map_parsing.c game_rules.c
 LIBFT_FILES = libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isalnum.c libft/ft_isascii.c libft/ft_isprint.c \
 	libft/ft_strlen.c libft/ft_memset.c libft/ft_bzero.c libft/ft_memcpy.c libft/ft_memmove.c \
 	libft/ft_strlcpy.c libft/ft_strlcat.c libft/ft_toupper.c libft/ft_tolower.c libft/ft_strchr.c \

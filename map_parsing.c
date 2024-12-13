@@ -16,12 +16,17 @@ void	char_location(t_mlx *data, int x, int y)
 	data->y_char = y * data->tile_height;
 }
 
+void    end_location(t_mlx *data, int x, int y)
+{
+    data->x_end = x * data->tile_width;
+	data->y_end = y * data->tile_height;
+}
+
 void map_parsing(t_map map_data, t_mlx *mlx_data)
 {
 	int	y;
 	int x;
 
-	y = 0;
 	y = 0;
 	while(y < map_data.l_count)
 	{
@@ -29,19 +34,24 @@ void map_parsing(t_map map_data, t_mlx *mlx_data)
 		while(x < map_data.l_len)
 		{
 			if (map_data.map[y][x] == 'P')
-			{	//save coordinates for beginning of game
+			{	
 				mlx_put_image_to_window(mlx_data->mlx, mlx_data->window, mlx_data->shroom_image, (x * 48), (y * 48));
 				char_location(mlx_data, x, y);
 			}
 			if (map_data.map[y][x] == '1')
 				mlx_put_image_to_window(mlx_data->mlx, mlx_data->window, mlx_data->obstacle, (x * 48), (y * 48));
 			if (map_data.map[y][x] == 'E')
+            {
 				mlx_put_image_to_window(mlx_data->mlx, mlx_data->window, mlx_data->end_closed, (x * 48), (y * 48));
-			if (map_data.map[y][x] == 'C')
+                end_location(mlx_data, x, y);
+            }
+            if (map_data.map[y][x] == 'C')
+            {
 				mlx_put_image_to_window(mlx_data->mlx, mlx_data->window, mlx_data->collectible, (x * 48), (y * 48));
+                mlx_data->collectible_count++;
+            }
 			x++;
 		}
 		y++;
 	}
-	
 }

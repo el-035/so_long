@@ -43,11 +43,13 @@ void background_grass(t_mlx data, t_map map_data)
         height += data.tile_height;
 	}
 }
-t_mlx	initialise_stuff(t_mlx data)
+t_mlx	initialise_stuff(t_mlx data, t_map map_data)
 {
 	data.tile_width = 48;		//this is dependent on location of p
 	data.tile_height = 48;		//or maybe its just not
 	data.moves = 1;
+    data.map = map_data.map;
+    data.collectible_count = 0;
 	return (data);
 }
 

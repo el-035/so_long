@@ -3,8 +3,8 @@
 
 //all stuff to include
 #include <stdlib.h>
-#include <mlx.h>
-//#include "minilibx-linux/mlx.h"    //delete and put the previous one
+//#include <mlx.h>
+#include "minilibx-linux/mlx.h"    //delete and put the previous one
 #include <math.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -12,13 +12,11 @@
 #include "gnl/get_next_line.h"
 #include "ft_printf/ft_printf.h"
 
-
 typedef struct s_map
 {
 	char	**map;
 	int		l_count;
 	int		l_len;
-    int     collectible_count;
 }	t_map;
 
 typedef struct s_path
@@ -32,8 +30,7 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	void	*window;
-	/* int		wind_x;
-	int		wind_y; */
+    char    **map;
 	void	*shroom_image;
 	void 	*backgroung;
     void    *obstacle;
@@ -43,25 +40,28 @@ typedef struct s_mlx
     int     tile_width;
     int     tile_height;
     int     moves;
-    int     x_char;		//coordinates of char at beginning of the game
+    int     x_char;
     int     y_char;
+    int     x_end;
+    int     y_end;
+    int     collectible_count;
+    int     c_flag;
 }	t_mlx;
-
 
 
 //all function prototypes
 //window
 void window_main(char *map_file);
-t_mlx	initialise_stuff(t_mlx data);
+t_mlx	initialise_stuff(t_mlx data, t_map map_data);
 void background_grass(t_mlx data, t_map map_data);
 t_mlx   save_images(t_mlx data);
 
 //events
-int     events(int key, t_mlx *data, t_map map_data);
-void    move_left(t_mlx *data/* , t_map map_data */);
-void    move_right(t_mlx *data/* , t_map map_data */);
-void    move_down(t_mlx *data/* , t_map map_data */);
-void    move_up(t_mlx *data, t_map map_data);
+int     events(int key, t_mlx *data);
+void    move_left(t_mlx *data);
+void    move_right(t_mlx *data);
+void    move_down(t_mlx *data);
+void    move_up(t_mlx *data);
 
 //map validation
 int	wall_check_hor(t_map data);
@@ -80,10 +80,14 @@ int		is_valid_path(t_map data, t_path path);
 
 //map parsing
 void map_parsing(t_map map_data, t_mlx *mlx_data);
-
+void	char_location(t_mlx *data, int x, int y/* , t_map map_data */);
 
 //to delete or change later
 t_map map_main (char *map_file);
 //int	open_window(void);
+
+//game rules
+void    collectibles(t_mlx *data, int x, int y);
+void    end_of_game(t_mlx *data);
 
 #endif
