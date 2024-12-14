@@ -9,7 +9,7 @@ void	map_input(char *map_file)
 		errors("Error opening map");
 }
 
-t_map map_main (char *map_file)
+t_map *map_main (char *map_file)
 {
 	t_map	*data;
 
@@ -19,7 +19,7 @@ t_map map_main (char *map_file)
 	map(data, map_file);
 	/* if(!data->map)
 		exit (1); */
-	return (*data);
+	return (data);
 }
 
 void	destroy_everything(t_mlx data)
@@ -37,32 +37,37 @@ void	destroy_everything(t_mlx data)
 	free(data.window); */
 	exit (0);
 }
-/* void	free_stuff(t_map map)
+void	free_stuff(t_map *map)
 {
-	free(map.map);
-} */
+	int i;
+
+    i = 0;
+    while(i < map->l_count)
+        free(map->map[i++]);
+    free(map->map);
+    free(map);
+}
 
 void window_main(char *map_file)
 {
 	t_mlx		data;
-	t_map		map_data;
-	//t_struct	pointer;
+	t_map		*map_data;
 
 	data.mlx = mlx_init ();
 	if (!data.mlx)
 		errors("Allocation failed");	//destroy everything ??
 	map_data = map_main(map_file); //initialises the t_map and validates map
 	data = save_images(data);
-	data = initialise_stuff(data, map_data);	//initialise height and width and move count
-	data.window = mlx_new_window(data.mlx, (map_data.l_len * data.tile_width), (map_data.l_count * data.tile_height), "so_long"); //considering each block to be 48x48 itll be 24*12
+	data = initialise_stuff(data, *map_data);	//initialise height and width and move count
+	data.window = mlx_new_window(data.mlx, (map_data->l_len * data.tile_width), (map_data->l_count * data.tile_height), "so_long"); //considering each block to be 48x48 itll be 24*12
 	if (!data.window)
 		errors("Allocation failed");	//destroy window function, free stuff, return error
-	background_grass(data, map_data);
-	map_parsing(map_data, &data);
+	background_grass(data, *map_data);
+	map_parsing(*map_data, &data);
 	mlx_key_hook(data.window, &events, &data);		//to get key response
 	//close with x button
 	mlx_loop(data.mlx);
-
+    free_stuff(map_data);
 	destroy_everything(data);
 }
 
@@ -75,5 +80,4 @@ int main (int argc, char **argv)	//take map as arg
 	//initialise all structs   
 	
 	window_main (argv[1]);
-	
 }

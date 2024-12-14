@@ -85,7 +85,7 @@ void	map_parsing(t_map map_data, t_mlx *mlx_data);
 void	char_location(t_mlx *data, int x, int y);
 
 //main
-t_map   map_main (char *map_file);
+t_map   *map_main (char *map_file);
 void	map_input(char *map_file);
 //int	open_window(void);
 

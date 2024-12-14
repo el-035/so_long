@@ -80,7 +80,7 @@ int events(int key, t_mlx *data)
 {
 	if (key == 65307)
 	{
-		ft_printf("moves: %d\n", data->moves++); //is this actually a move???
+		//ft_printf("moves: %d\n", data->moves++); //is this actually a move???
 		close_everything(data);
 	}
 	if (key == 65363 || key == 100)
