@@ -9,24 +9,25 @@
 	//walls around
 	//valid path (flood fill??)
 
-/* int	line_count(int fd, t_map data)	//result could be put in a struct
+int	line_count(int fd, t_map data)	
 {
 	char	*line;
 	
 	data.l_count = 0;
 	line = get_next_line(fd);
 	if (!line)
-		errors (5);		//error
+		errors("Allocation failed");
 	while(line != NULL)
 	{
+		free(line);
 		data.l_count++;
 		line = get_next_line(fd);
 		if (!line)
-			break ;				//protection?
+			break ;			//???
 	}
 	return (free (line), data.l_count);
-} */
-int	line_count(int fd)
+}
+/* int	line_count(int fd)
 {
 	int lc;
 
@@ -34,7 +35,7 @@ int	line_count(int fd)
 	while(get_next_line(fd) != NULL)
 		lc++;
 	return (lc);
-}
+} */
 
 char **convert_map(int fd, t_map data)
 {
@@ -47,8 +48,13 @@ char **convert_map(int fd, t_map data)
 	while(i < data.l_count)
 	{
 		data.map[i] = get_next_line(fd);
-		if (!data.map[i])               
+		if (!data.map[i])
+		{           
+			while (i >= 0)
+				free (data.map[--i]);
+			free(data.map);
 			errors("Allocation failed");
+		}
 		i++;
 	}
 	return (data.map);
@@ -79,14 +85,18 @@ void	map(t_map *data, char *map_file)	//takes argv[1]
 	fd = open(map_file, O_RDONLY);
 	if (fd <= 0)
         errors("Error opening map");
-	data->l_count = line_count(fd);
+	data->l_count = line_count(fd, *data);
 	if (data->l_count == 0)
 		print_err("Invalid map\n");					//???
 	close (fd);
 	fd = open(map_file, O_RDONLY);
 	data->map = convert_map(fd, *data);
 	if (!data->map)
+	{
+		close  (fd);
+		free_map(data);
 		errors("Allocation failed");
+	}
 	data->l_len = line_len(*data);
 	validation(*data);
 }

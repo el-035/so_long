@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <stdio.h>
-//#include <mlx.h>
-#include "minilibx-linux/mlx.h" //delete and put the previous one
+#include <mlx.h>
+//#include "minilibx-linux/mlx.h" //delete and put the previous one
 #include <math.h>			   //never used
 #include <unistd.h>
 #include <fcntl.h>		  //??
@@ -56,7 +56,7 @@ typedef struct s_mlx
 void	window_main(char *map_file);
 t_mlx	initialise_stuff(t_mlx data, t_map map_data);
 void	background_grass(t_mlx data, t_map map_data);
-t_mlx   save_images(t_mlx data);
+t_mlx   save_images(t_mlx data, t_map *map);
 
 //events
 int		events(int key, t_mlx *data);
@@ -77,8 +77,8 @@ void	map(t_map *data, char *map_file);
 char	**copy_map(t_map data);
 t_path	find_p(t_map data, t_path path);
 void	fill_path(t_map data, t_path path, int x, int y);
-int		path_validation(t_map data);
-int		is_valid_path(t_map data, t_path path);
+void		path_validation(t_map data);
+void		is_valid_path(t_map data, t_path path);
 
 //map parsing
 void	map_parsing(t_map map_data, t_mlx *mlx_data);
@@ -97,5 +97,10 @@ void	close_everything(t_mlx *data);
 //error
 void	errors(char *error_msg);
 void	print_err(char *error_msg);
+
+//free
+void	free_copy(t_path *map, t_map data);
+void	free_map(t_map *map);
+void	destroy_everything(t_mlx data, t_map *map);
 
 #endif

@@ -19,7 +19,7 @@ char	**copy_map(t_map data)
 	return (map_cpy);
 }
 
-int is_valid_path(t_map data, t_path path)
+void is_valid_path(t_map data, t_path path)
 {
     path.y = 0;
 	while(path.y < data.l_count)
@@ -28,12 +28,11 @@ int is_valid_path(t_map data, t_path path)
 		while(path.x < data.l_len)
 		{
 			if (path.map_cpy[path.y][path.x] == 'C' || path.map_cpy[path.y][path.x] == 'E')
-				return (0);
+				print_err("Invalid map\n");
 			path.x++;
 		}
 		path.y++;
 	}
-    return (1);
 }
 
 t_path	find_p(t_map data, t_path path)
@@ -63,7 +62,8 @@ void	fill_path(t_map data, t_path path, int x, int y)
 	fill_path(data, path, x, y - 1);
 }
 
-int	path_validation(t_map data)
+
+void	path_validation(t_map data)
 {
 	t_path	*path;
 	path = (t_path *) malloc(sizeof(t_path));
@@ -72,5 +72,6 @@ int	path_validation(t_map data)
 	path->map_cpy = copy_map(data);
 	*path = find_p(data, *path);
     fill_path(data, *path, path->x, path->y);
-	return (is_valid_path(data, *path));
+	is_valid_path(data, *path);
+	free_copy(path, data);
 }

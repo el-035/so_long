@@ -1,31 +1,30 @@
 #include "so_long.h"
 
-t_mlx   save_images(t_mlx data) //fix error messages
+t_mlx   save_images(t_mlx data, t_map *map) //fix error messages
 {
     int height;
     int width;
 
     data.backgroung = mlx_xpm_file_to_image(data.mlx, "images/Grass.xpm", &width, &height);
     if (!data.backgroung)
-		errors("Error opening images");
+		destroy_everything(data, map);
     data.shroom_image = mlx_xpm_file_to_image(data.mlx, "images/shroomie.xpm", &width, &height);
 	if (!data.shroom_image)
-		errors("Error opening images");
+		destroy_everything(data, map);
     data.obstacle = mlx_xpm_file_to_image(data.mlx, "images/obstacle.xpm", &width, &height);
 	if (!data.obstacle)
-		errors("Error opening images");
+		destroy_everything(data, map);
     data.end_open = mlx_xpm_file_to_image(data.mlx, "images/open_chest.xpm", &width, &height);
 	if (!data.end_open)
-		errors("Error opening images");
+		destroy_everything(data, map);
     data.end_closed = mlx_xpm_file_to_image(data.mlx, "images/closed_chest.xpm", &width, &height);
 	if (!data.end_closed)
-		errors("Error opening images");
+		destroy_everything(data, map);
     data.collectible = mlx_xpm_file_to_image(data.mlx, "images/key.xpm", &width, &height);
     if (!data.collectible)
-		errors("Error opening images");
+		destroy_everything(data, map);
 	return (data);
 }
-
 
 void background_grass(t_mlx data, t_map map_data)
 {

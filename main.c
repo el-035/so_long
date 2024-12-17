@@ -1,5 +1,10 @@
 #include"so_long.h"
 
+//fix makefile (libft)
+//x to close
+//valgrind
+//error invalid number of args
+
 void	map_input(char *map_file)
 {
 	int i;
@@ -22,32 +27,6 @@ t_map *map_main (char *map_file)
 	return (data);
 }
 
-void	destroy_everything(t_mlx data)
-{
-	mlx_destroy_image(data.mlx, data.shroom_image);
-	mlx_destroy_image(data.mlx, data.obstacle);
-	mlx_destroy_image(data.mlx, data.end_open);
-	mlx_destroy_image(data.mlx, data.end_closed);
-	mlx_destroy_image(data.mlx, data.collectible);
-	mlx_destroy_image(data.mlx, data.backgroung);
-	mlx_destroy_window(data.mlx, data.window);
-	mlx_destroy_display(data.mlx);
-/* 	free(data.mlx);
-	free(data.shroom_image);
-	free(data.window); */
-	exit (0);
-}
-void	free_stuff(t_map *map)
-{
-	int i;
-
-    i = 0;
-    while(i < map->l_count)
-        free(map->map[i++]);
-    free(map->map);
-    free(map);
-}
-
 void window_main(char *map_file)
 {
 	t_mlx		data;
@@ -56,28 +35,31 @@ void window_main(char *map_file)
 	data.mlx = mlx_init ();
 	if (!data.mlx)
 		errors("Allocation failed");	//destroy everything ??
-	map_data = map_main(map_file); //initialises the t_map and validates map
-	data = save_images(data);
-	data = initialise_stuff(data, *map_data);	//initialise height and width and move count
+	map_data = map_main(map_file);
+	data = save_images(data, map_data);
+	data = initialise_stuff(data, *map_data);
 	data.window = mlx_new_window(data.mlx, (map_data->l_len * data.tile_width), (map_data->l_count * data.tile_height), "so_long"); //considering each block to be 48x48 itll be 24*12
 	if (!data.window)
-		errors("Allocation failed");	//destroy window function, free stuff, return error
+	{
+		//free_map(map_data);
+		destroy_everything(data, map_data);
+		mlx_destroy_window(data.mlx, data.window);
+		errors("Allocation failed");
+	}	
 	background_grass(data, *map_data);
 	map_parsing(*map_data, &data);
-	mlx_key_hook(data.window, &events, &data);		//to get key response
+	mlx_key_hook(data.window, &events, &data);
 	//close with x button
 	mlx_loop(data.mlx);
-    free_stuff(map_data);
-	destroy_everything(data);
+    //free_map(map_data);
+	destroy_everything(data, map_data);
+	exit(0);
 }
 
-int main (int argc, char **argv)	//take map as arg
+int main (int argc, char **argv)
 {
 	if (argc != 2)
 		errors("Invalid number of arguments");
 	map_input(argv[1]);
-	
-	//initialise all structs   
-	
 	window_main (argv[1]);
 }
