@@ -6,7 +6,7 @@
     //walls around											/done to test
     //valid path (flood fill??) to exit and collectibles
 
-void    line_len_check(t_map data)
+void    line_len_check(t_mlx data)
 {
 	int	i;
 	int len;
@@ -25,7 +25,7 @@ void    line_len_check(t_map data)
 	}
 }
 
-void    wall_check_hor(t_map data)	//	chnage to void and put error 
+void    wall_check_hor(t_mlx data)	//	chnage to void and put error 
 {
 	int	j;
 
@@ -45,7 +45,7 @@ void    wall_check_hor(t_map data)	//	chnage to void and put error
 	}
 }
 
-void   wall_check_ver(t_map data)	//	chnage to void and put error 
+void   wall_check_ver(t_mlx data)	//	chnage to void and put error 
 {
 	int	i;
 
@@ -65,7 +65,7 @@ void   wall_check_ver(t_map data)	//	chnage to void and put error
 	}
 }
 
-void	char_check(t_map data)	//	chnage to void and put error 
+void	char_check(t_mlx data)	//	chnage to void and put error 
 {
 	int	i;
 	int	j;
@@ -90,7 +90,7 @@ void	char_check(t_map data)	//	chnage to void and put error
         print_err("Invalid map\n");
 }
 
-void more_char_check(t_map data)
+void more_char_check(t_mlx data)
 {
 	int	i;
 	int	j;

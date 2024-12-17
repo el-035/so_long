@@ -1,6 +1,6 @@
 #include"so_long.h"
 
-void	free_copy(t_path *map, t_map data)
+void	free_copy(t_path *map, t_mlx data)
 {
 	int i;
 
@@ -25,9 +25,8 @@ void	free_map(char **map)
 	map = NULL;
 }
 
-void	destroy_everything(t_mlx data, t_map *map)
+void	destroy_everything(t_mlx data)
 {
-	(void)map;
 	if (data.shroom_image)
 		mlx_destroy_image(data.mlx, data.shroom_image);
     if (data.obstacle)
@@ -47,6 +46,5 @@ void	destroy_everything(t_mlx data, t_map *map)
 		mlx_destroy_display(data.mlx);
         free(data.mlx);
     }
-	// if(map)
 	free_map(data.map);
 }

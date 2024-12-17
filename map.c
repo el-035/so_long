@@ -9,7 +9,7 @@
 	//walls around
 	//valid path (flood fill??)
 
-int	line_count(int fd, t_map data)	
+int	line_count(int fd, t_mlx data)	
 {
 	char	*line;
 	
@@ -37,7 +37,7 @@ int	line_count(int fd, t_map data)
 	return (lc);
 } */
 
-char **convert_map(int fd, t_map data)
+char **convert_map(int fd, t_mlx data)
 {
 	int	i;
 
@@ -62,7 +62,7 @@ char **convert_map(int fd, t_map data)
 	return (data.map);
 }
 
-void	validation(t_map data)
+void	validation(t_mlx data)
 {
 	line_len_check(data);
 	wall_check_hor(data);
@@ -71,7 +71,7 @@ void	validation(t_map data)
     wall_check_ver(data);
     path_validation(data);
 }
-int line_len(t_map data)
+int line_len(t_mlx data)
 {
 	if (ft_strchr((const char *) data.map[0], '\n') == NULL)
 		data.l_len = ft_strlen((const char *) data.map[0]);
@@ -80,26 +80,26 @@ int line_len(t_map data)
 	return (data.l_len);
 }
 
-void	map(t_map *data, char *map_file)	//takes argv[1]
+t_mlx	map(t_mlx data, char *map_file)
 {
 	int		fd;
 
 	fd = open(map_file, O_RDONLY);
 	if (fd <= 0)
         errors("Error opening map");
-	data->l_count = line_count(fd, *data);
-	if (data->l_count == 0)
+	data.l_count = line_count(fd, data);
+	if (data.l_count == 0)
 		print_err("Invalid map\n");					//???
 	close (fd);
 	fd = open(map_file, O_RDONLY);
-	data->map = convert_map(fd, *data);
-	if (!data->map)
+	data.map = convert_map(fd, data);
+	if (!data.map)
 	{
-		close  (fd);
-		free_map(data->map);
-		free(map);
+		close (fd);
+		free_map(data.map);
 		errors("Allocation failed");
 	}
-	data->l_len = line_len(*data);
-	validation(*data);
+	data.l_len = line_len(data);
+	validation(data);
+	return (data);
 }

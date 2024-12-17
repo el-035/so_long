@@ -12,39 +12,39 @@ void	end_location(t_mlx *data, int x, int y)
 	data->y_end = y * data->tile_height;
 }
 
-void	parsing_conditions(t_map map_data, t_mlx *mlx_data, int x, int y)
+void	parsing_conditions(t_mlx *data, int x, int y)
 {
-	if (map_data.map[y][x] == 'P')
+	if (data->map[y][x] == 'P')
 	{	
-		mlx_put_image_to_window(mlx_data->mlx, mlx_data->window, mlx_data->shroom_image, (x * 48), (y * 48));
-		char_location(mlx_data, x, y);
+		mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, (x * 48), (y * 48));
+		char_location(data, x, y);
 	}
-	if (map_data.map[y][x] == '1')
-		mlx_put_image_to_window(mlx_data->mlx, mlx_data->window, mlx_data->obstacle, (x * 48), (y * 48));
-	if (map_data.map[y][x] == 'E')
+	if (data->map[y][x] == '1')
+		mlx_put_image_to_window(data->mlx, data->window, data->obstacle, (x * 48), (y * 48));
+	if (data->map[y][x] == 'E')
 	{
-		mlx_put_image_to_window(mlx_data->mlx, mlx_data->window, mlx_data->end_closed, (x * 48), (y * 48));
-		end_location(mlx_data, x, y);
+		mlx_put_image_to_window(data->mlx, data->window, data->end_closed, (x * 48), (y * 48));
+		end_location(data, x, y);
 	}
-	if (map_data.map[y][x] == 'C')
+	if (data->map[y][x] == 'C')
 	{
-		mlx_put_image_to_window(mlx_data->mlx, mlx_data->window, mlx_data->collectible, (x * 48), (y * 48));
-		mlx_data->collectible_count++;
+		mlx_put_image_to_window(data->mlx, data->window, data->collectible, (x * 48), (y * 48));
+		data->collectible_count++;
 	}
 }
 
-void map_parsing(t_map map_data, t_mlx *mlx_data)
+void map_parsing(t_mlx *data)
 {
 	int	y;
 	int x;
 
 	y = 0;
-	while(y < map_data.l_count)
+	while(y < data->l_count)
 	{
 		x = 0;
-		while(x < map_data.l_len)
+		while(x < data->l_len)
 		{
-			parsing_conditions(map_data, mlx_data, x, y);
+			parsing_conditions(data, x, y);
 			x++;
 		}
 		y++;

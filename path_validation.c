@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-char	**copy_map(t_map data)
+char	**copy_map(t_mlx data)
 {
 	char	**map_cpy;
 	int		y;
@@ -19,7 +19,7 @@ char	**copy_map(t_map data)
 	return (map_cpy);
 }
 
-void is_valid_path(t_map data, t_path path)
+void is_valid_path(t_mlx data, t_path path)
 {
     path.y = 0;
 	while(path.y < data.l_count)
@@ -35,7 +35,7 @@ void is_valid_path(t_map data, t_path path)
 	}
 }
 
-t_path	find_p(t_map data, t_path path)
+t_path	find_p(t_mlx data, t_path path)
 {
 	path.y = 0;
 	while(path.y < data.l_count)
@@ -51,7 +51,7 @@ t_path	find_p(t_map data, t_path path)
 	}
 	return (path);
 }
-void	fill_path(t_map data, t_path path, int x, int y)
+void	fill_path(t_mlx data, t_path path, int x, int y)
 {
     if (y < 0 || x < 0 || y >= data.l_count || x >= data.l_len || path.map_cpy[y][x] == '1')
 		return ;
@@ -63,7 +63,7 @@ void	fill_path(t_map data, t_path path, int x, int y)
 }
 
 
-void	path_validation(t_map data)
+void	path_validation(t_mlx data)
 {
 	t_path	*path;
 	path = (t_path *) malloc(sizeof(t_path));
