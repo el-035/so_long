@@ -16,7 +16,7 @@ int	line_count(int fd, t_mlx data)
 	data.l_count = 0;
 	line = get_next_line(fd);
 	if (!line)
-		errors("Allocation failed");
+		errors("Allocation failed", data);
 	while(line != NULL)
 	{
 		free(line);
@@ -44,7 +44,7 @@ char **convert_map(int fd, t_mlx data)
 	i = 0;
 	data.map = (char**)malloc((data.l_count + 1) * sizeof(char *));
 	if (!data.map)
-		errors("Allocation failed");
+		errors("Allocation failed", data);
 	while(i < data.l_count)
 	{
 		data.map[i] = get_next_line(fd);
@@ -53,7 +53,7 @@ char **convert_map(int fd, t_mlx data)
 			while (i >= 0)
 				free (data.map[--i]);
 			free(data.map);
-			errors("Allocation failed");
+			errors("Allocation failed", data);
 		}
 		i++;
 	}
@@ -86,10 +86,10 @@ t_mlx	map(t_mlx data, char *map_file)
 
 	fd = open(map_file, O_RDONLY);
 	if (fd <= 0)
-        errors("Error opening map");
+        errors("Error opening map", data);
 	data.l_count = line_count(fd, data);
 	if (data.l_count == 0)
-		print_err("Invalid map\n");					//???
+		print_err("Invalid map\n", data);					//???
 	close (fd);
 	fd = open(map_file, O_RDONLY);
 	data.map = convert_map(fd, data);
@@ -97,7 +97,7 @@ t_mlx	map(t_mlx data, char *map_file)
 	{
 		close (fd);
 		free_map(data.map);
-		errors("Allocation failed");
+		errors("Allocation failed", data);
 	}
 	data.l_len = line_len(data);
 	validation(data);

@@ -14,13 +14,13 @@ void	end_of_game(t_mlx *data)
 	if (data->collectible_count == 0)
 	{
 		ft_printf("moves: %d\n", data->moves++);
-		close_everything(data);
+		destroy_everything(*data);
 	}
 	else
 		return ;
 }
-int	close_everything(t_mlx *data)
+/* int	close_everything(t_mlx *data)
 {
 	destroy_everything(*data);
 	exit(0);
-}
+} */

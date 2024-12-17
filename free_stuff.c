@@ -25,7 +25,7 @@ void	free_map(char **map)
 	map = NULL;
 }
 
-void	destroy_everything(t_mlx data)
+int	destroy_everything(t_mlx data)
 {
 	if (data.shroom_image)
 		mlx_destroy_image(data.mlx, data.shroom_image);
@@ -47,4 +47,5 @@ void	destroy_everything(t_mlx data)
         free(data.mlx);
     }
 	free_map(data.map);
+	exit (0);
 }

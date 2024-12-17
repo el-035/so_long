@@ -34,16 +34,16 @@ typedef struct s_mlx
 	void	*end_closed;
 	void	*end_open;
 	void	*collectible;
-	int  tile_width;
-	int  tile_height;
-	int  moves;
-	int  x_char;
-	int  y_char;
-	int  x_end;
-	int  y_end;
-	int  collectible_count;
-	int  c_flag;
-}		t_mlx;
+	int		tile_width;
+	int		tile_height;
+	int		moves;
+	int		x_char;
+	int		y_char;
+	int		x_end;
+	int		y_end;
+	int		collectible_count;
+	int		c_flag;
+}			t_mlx;
 
 
 //all function prototypes
@@ -93,15 +93,15 @@ void	parsing_conditions(t_mlx *data, int x, int y);
 //game rules
 void	collectibles(t_mlx *data, int x, int y);
 void	end_of_game(t_mlx *data);
-int		close_everything(t_mlx *data);
+//int		close_everything(t_mlx *data);
 
 //error
-void	errors(char *error_msg);
-void	print_err(char *error_msg);
+void	errors(char *error_msg, t_mlx data);
+void	print_err(char *error_msg, t_mlx data);
 
 //free
 void	free_copy(t_path *map, t_mlx data);
 void	free_map(char **map);
-void	destroy_everything(t_mlx data);
+int	destroy_everything(t_mlx data);
 
 #endif

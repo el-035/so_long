@@ -6,32 +6,16 @@
 //exit in a clean way, and return "Error\n" followed by an explicit error message of
 //your choice.
 
-void	print_err(char *error_msg)
+void	print_err(char *error_msg, t_mlx data)
 {
 	ft_printf(error_msg);
+	destroy_everything(data);
 	exit (1);
 }	
-/* if (flag == 2)
-		print_err("Invalid input, please use a .ber file\n");
-	if (flag == 3)
-		print_err("Invalid map\n"); */
 
-
-void	errors(char *error_msg)
+void	errors(char *error_msg, t_mlx data)
 {
 	perror (error_msg);
-	
-	/* if (flag == 0)
-		errors("Error opening images");
-	if (flag == 1)
-		errors("Error opening map");
-	
-	
-	if (flag == 4)
-		errors("Invalid number of arguments");
-	if (flag == 5)
-		errors("Allocation failed");
- */
-	
+	destroy_everything(data);
 	exit (1);
 }

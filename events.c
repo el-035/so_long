@@ -79,10 +79,7 @@ void	move_left(t_mlx *data)
 int events(int key, t_mlx *data)
 {
 	if (key == 65307)
-	{
-		//ft_printf("moves: %d\n", data->moves++); //is this actually a move???
-		close_everything(data);
-	}
+		destroy_everything(*data);
 	if (key == 65363 || key == 100)
 		move_right(data);
 	if (key == 65364 || key == 115)
