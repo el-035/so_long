@@ -42,7 +42,7 @@ char **convert_map(int fd, t_map data)
 	int	i;
 
 	i = 0;
-	data.map = (char**)malloc((data.l_count) * sizeof(char *));
+	data.map = (char**)malloc((data.l_count + 1) * sizeof(char *));
 	if (!data.map)
 		errors("Allocation failed");
 	while(i < data.l_count)
@@ -57,6 +57,8 @@ char **convert_map(int fd, t_map data)
 		}
 		i++;
 	}
+	data.map[i] = NULL;
+	get_next_line(-1);
 	return (data.map);
 }
 
@@ -94,7 +96,8 @@ void	map(t_map *data, char *map_file)	//takes argv[1]
 	if (!data->map)
 	{
 		close  (fd);
-		free_map(data);
+		free_map(data->map);
+		free(map);
 		errors("Allocation failed");
 	}
 	data->l_len = line_len(*data);

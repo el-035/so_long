@@ -11,20 +11,23 @@ void	free_copy(t_path *map, t_map data)
     free(map);
 }
 
-void	free_map(t_map *map)
+void	free_map(char **map)
 {
 	int i;
 
     i = 0;
-    while(i < map->l_count)
-        free(map->map[i++]);
-    free(map->map);
-	map->map = NULL;
+    while(map[i])
+	{
+        free(map[i]);
+		i++;
+	}
     free(map);
+	map = NULL;
 }
 
 void	destroy_everything(t_mlx data, t_map *map)
 {
+	(void)map;
 	if (data.shroom_image)
 		mlx_destroy_image(data.mlx, data.shroom_image);
     if (data.obstacle)
@@ -44,6 +47,6 @@ void	destroy_everything(t_mlx data, t_map *map)
 		mlx_destroy_display(data.mlx);
         free(data.mlx);
     }
-	if(map)
-		free_map(map);
+	// if(map)
+	free_map(data.map);
 }

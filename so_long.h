@@ -92,7 +92,7 @@ void	map_input(char *map_file);
 //game rules
 void	collectibles(t_mlx *data, int x, int y);
 void	end_of_game(t_mlx *data);
-void	close_everything(t_mlx *data);
+int	close_everything(t_mlx *data);
 
 //error
 void	errors(char *error_msg);
@@ -100,7 +100,7 @@ void	print_err(char *error_msg);
 
 //free
 void	free_copy(t_path *map, t_map data);
-void	free_map(t_map *map);
+void	free_map(char **map);
 void	destroy_everything(t_mlx data, t_map *map);
 
 #endif

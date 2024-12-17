@@ -90,7 +90,11 @@ char	*get_next_line(int fd)
 
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
+	{
+		free(temp);
+		temp = NULL;
 		return (NULL);
+	}
 	temp = read_content(fd, temp);
 	if (!temp)
 		return (NULL);

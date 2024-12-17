@@ -45,14 +45,16 @@ void window_main(char *map_file)
 		destroy_everything(data, map_data);
 		mlx_destroy_window(data.mlx, data.window);
 		errors("Allocation failed");
-	}	
+	}
 	background_grass(data, *map_data);
 	map_parsing(*map_data, &data);
+	free(map_data);
 	mlx_key_hook(data.window, &events, &data);
+	mlx_hook(data.window, 17, 0, close_everything, &data);
 	//close with x button
 	mlx_loop(data.mlx);
     //free_map(map_data);
-	destroy_everything(data, map_data);
+	//destroy_everything(data, NULL);
 	exit(0);
 }
 

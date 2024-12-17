@@ -19,10 +19,11 @@ void	end_of_game(t_mlx *data)
 	else
 		return ;
 }
-void	close_everything(t_mlx *data)
+int	close_everything(t_mlx *data)
 {
-	mlx_destroy_window(data->mlx, data->window);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
+	// mlx_destroy_window(data->mlx, data->window);
+	// mlx_destroy_display(data->mlx);
+	// free(data->mlx);
+	destroy_everything(*data, NULL);
 	exit(0);
 }
