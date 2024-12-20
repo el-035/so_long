@@ -96,7 +96,7 @@ t_mlx	map(t_mlx data, char *map_file)
 	if (!data.map)
 	{
 		close (fd);
-		free_map(data.map);
+		//free_map(data.map);
 		errors("Allocation failed", data);
 	}
 	data.l_len = line_len(data);

@@ -17,10 +17,7 @@ void	free_map(char **map)
 
     i = 0;
     while(map[i])
-	{
-        free(map[i]);
-		i++;
-	}
+        free(map[i++]);
     free(map);
 	map = NULL;
 }
@@ -46,6 +43,7 @@ int	destroy_everything(t_mlx data)
 		mlx_destroy_display(data.mlx);
         free(data.mlx);
     }
-	free_map(data.map);
+    if (data.map)
+	    free_map(data.map);
 	exit (0);
 }

@@ -19,8 +19,3 @@ void	end_of_game(t_mlx *data)
 	else
 		return ;
 }
-/* int	close_everything(t_mlx *data)
-{
-	destroy_everything(*data);
-	exit(0);
-} */

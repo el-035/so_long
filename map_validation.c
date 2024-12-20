@@ -1,11 +1,5 @@
 #include"so_long.h"
 
-//validate map
-	//only valid charachters								/done to test
-    //all lines same len									/done
-    //walls around											/done to test
-    //valid path (flood fill??) to exit and collectibles
-
 void    line_len_check(t_mlx data)
 {
 	int	i;
@@ -20,12 +14,12 @@ void    line_len_check(t_mlx data)
 		else
 			len = ft_strlen((const char *) data.map[i]) - 1;
 		if (len != data.l_len)
-			print_err("Invalid map\n");
+			print_err("Invalid map\n", data);
 		i++;
 	}
 }
 
-void    wall_check_hor(t_mlx data)	//	chnage to void and put error 
+void    wall_check_hor(t_mlx data)
 {
 	int	j;
 
@@ -33,14 +27,14 @@ void    wall_check_hor(t_mlx data)	//	chnage to void and put error
 	while (data.map[0][j] && data.map[0][j] != '\n')
 	{
 		if (data.map[0][j] != '1')
-			print_err("Invalid map\n");
+			print_err("Invalid map\n", data);
 		j++;
 	}
 	j = 0;
 	while (data.map[data.l_count - 1][j] && data.map[data.l_count - 1][j] != '\n')
 	{
 		if (data.map[data.l_count - 1][j] != '1')
-			print_err("Invalid map\n");
+			print_err("Invalid map\n", data);
 		j++;
 	}
 }
@@ -53,14 +47,14 @@ void   wall_check_ver(t_mlx data)	//	chnage to void and put error
 	while (i < data.l_count)
 	{
 		if (data.map[i][0] != '1')
-			print_err("Invalid map\n");
+			print_err("Invalid map\n", data);
 		i++;
 	}
 	i = 0;
 	while (i < data.l_count)
 	{
 		if (data.map[i][data.l_len - 1] != '1')
-			print_err("Invalid map\n");
+			print_err("Invalid map\n", data);
 		i++;
 	}
 }
@@ -79,7 +73,7 @@ void	char_check(t_mlx data)	//	chnage to void and put error
         while (data.map[i][j] && data.map[i][j] != '\n')
 		{
 			if (data.map[i][j] != '1' && data.map[i][j] != '0' && data.map[i][j] != 'P' && data.map[i][j] != 'C' && data.map[i][j] != 'E')
-				print_err("Invalid map\n");
+				print_err("Invalid map\n", data);
             if (data.map[i][j] == 'P')
                 p++;
 			j++;
@@ -87,7 +81,7 @@ void	char_check(t_mlx data)	//	chnage to void and put error
 		i++;
 	}
     if (p != 1)
-        print_err("Invalid map\n");
+        print_err("Invalid map\n", data);
 }
 
 void more_char_check(t_mlx data)
@@ -114,5 +108,5 @@ void more_char_check(t_mlx data)
 		i++;
 	}
     if (e != 1 || c < 1)
-        print_err("Invalid map\n");
+        print_err("Invalid map\n", data);
 }
