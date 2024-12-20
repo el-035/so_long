@@ -22,19 +22,23 @@ char	**copy_map(t_mlx data)
 	return (map_cpy);
 }
 
-void is_valid_path(t_mlx data, t_path path)
+void is_valid_path(t_mlx data, t_path *path)
 {
-    path.y = 0;
-	while(path.y < data.l_count)
+    path->y = 0;
+	while(path->y < data.l_count)
 	{
-		path.x = 0;
-		while(path.x < data.l_len)
+		path->x = 0;
+		while(path->x < data.l_len)
 		{
-			if (path.map_cpy[path.y][path.x] == 'C' || path.map_cpy[path.y][path.x] == 'E')
+			if (path->map_cpy[path->y][path->x] == 'C' || path->map_cpy[path->y][path->x] == 'E')
+			{
+				free_copy(path, data);
+				free(path);
 				print_err("Invalid map\n", data);
-			path.x++;
+			}
+			path->x++;
 		}
-		path.y++;
+		path->y++;
 	}
 }
 
@@ -78,6 +82,7 @@ void	path_validation(t_mlx data)
 	path->map_cpy = copy_map(data);
 	*path = find_p(data, *path);
     fill_path(data, *path, path->x, path->y);
-	is_valid_path(data, *path);
+	is_valid_path(data, path);
 	free_copy(path, data);
+	free(path);
 }

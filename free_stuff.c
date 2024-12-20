@@ -8,7 +8,8 @@ void	free_copy(t_path *map, t_mlx data)
     while(i < data.l_count)
         free(map->map_cpy[i++]);
     free(map->map_cpy);
-    free(map);
+    //free(map);
+    //map = NULL;
 }
 
 void	free_map(char **map)

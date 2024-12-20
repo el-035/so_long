@@ -89,14 +89,13 @@ t_mlx	map(t_mlx data, char *map_file)
         errors("Error opening map", data);
 	data.l_count = line_count(fd, data);
 	if (data.l_count == 0)
-		print_err("Invalid map\n", data);					//???
+		print_err("Invalid map\n", data);
 	close (fd);
 	fd = open(map_file, O_RDONLY);
 	data.map = convert_map(fd, data);
 	if (!data.map)
 	{
 		close (fd);
-		//free_map(data.map);
 		errors("Allocation failed", data);
 	}
 	data.l_len = line_len(data);

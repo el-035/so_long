@@ -83,7 +83,7 @@ char	**copy_map(t_mlx data);
 t_path	find_p(t_mlx data, t_path path);
 void	fill_path(t_mlx data, t_path path, int x, int y);
 void	path_validation(t_mlx data);
-void	is_valid_path(t_mlx data, t_path path);
+void	is_valid_path(t_mlx data, t_path *path);
 
 //map parsing
 void	map_parsing(t_mlx *data);
