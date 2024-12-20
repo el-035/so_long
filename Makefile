@@ -18,7 +18,7 @@ FT_PRINTF_OFILES = $(FT_PRINTF_FILES:.c=.o)
 GNL_OFILES = $(GNL_FILES:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -g
-
+#del extra stuff
 MLX = -I./minilibx-linux -L./minilibx-linux -lmlx -lXext -lX11
 FT_PRINTF = -I./ft_printf
 GNL = -I./gnl

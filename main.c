@@ -6,6 +6,8 @@
 //do i print you won at the end??
 //remove -g from makefile compilation
 // ext 0 r 1
+//check that map is not bigger than display
+//if collectoble cannot be reached invalid map
 
 void	map_input(char *map_file)
 {
@@ -32,9 +34,9 @@ int main (int argc, char **argv)
 	data.mlx = mlx_init ();
 	if (!data.mlx)
 		errors("Allocation failed", data);
-	data = map(data, argv[1]);
-	data = save_images(data);
 	data = initialise_stuff(data);
+	data = save_images(data);
+	data = map(data, argv[1]);
 	data.window = mlx_new_window(data.mlx, (data.l_len * data.tile_width), (data.l_count * data.tile_height), "so_long");
 	if (!data.window)
 		errors("Allocation failed", data);

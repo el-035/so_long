@@ -7,7 +7,10 @@ char	**copy_map(t_mlx data)
 
 	map_cpy = (char **) malloc(data.l_count * sizeof(char *));
 	if (!map_cpy)
+	{
+		free(data.path);
 		errors("Allocation failed", data);
+	}
 	y = 0;
 	while(y < data.l_count)
 	{
@@ -66,9 +69,12 @@ void	fill_path(t_mlx data, t_path path, int x, int y)
 void	path_validation(t_mlx data)
 {
 	t_path	*path;
+
+	
 	path = (t_path *) malloc(sizeof(t_path));
 	if (!path)
 		errors("Allocation failed", data);
+	data.path = path;
 	path->map_cpy = copy_map(data);
 	*path = find_p(data, *path);
     fill_path(data, *path, path->x, path->y);

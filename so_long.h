@@ -43,6 +43,7 @@ typedef struct s_mlx
 	int		y_end;
 	int		collectible_count;
 	int		c_flag;
+	t_path * path;
 }			t_mlx;
 
 

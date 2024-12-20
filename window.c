@@ -50,5 +50,19 @@ t_mlx	initialise_stuff(t_mlx data)
 	data.tile_height = 48;
 	data.moves = 1;
     data.collectible_count = 0;
+	data.window = NULL;
+	data.shroom_image = NULL;
+	data.backgroung = NULL;
+	data.obstacle = NULL;
+	data.end_closed = NULL;
+	data.end_open = NULL;
+	data.collectible = NULL;
+	data.map = NULL;
+	data.l_count = 0;
+	data.l_len = 0;
+	data.x_char = 0;
+	data.y_char = 0;
+	data.x_end = 0;
+	data.y_end = 0;
 	return (data);
 }
