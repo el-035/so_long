@@ -2,10 +2,10 @@
 
 //fix makefile (libft)
 //valgrind
-//x button segfaults
 //error invalid number of args or wrong file why success
 //do i print you won at the end??
 //remove -g from makefile compilation
+// ext 0 r 1
 
 void	map_input(char *map_file)
 {
@@ -31,11 +31,7 @@ int main (int argc, char **argv)
 	map_input(argv[1]);
 	data.mlx = mlx_init ();
 	if (!data.mlx)
-	{
-        perror("failed to allocate mlx");
-        exit (1);
-    }	
-		//errors("Allocation failed", data);	//destroy everything ??
+		errors("Allocation failed", data);
 	data = map(data, argv[1]);
 	data = save_images(data);
 	data = initialise_stuff(data);
@@ -44,8 +40,7 @@ int main (int argc, char **argv)
 		errors("Allocation failed", data);
 	background_grass(data);
 	map_parsing(&data);
-	mlx_key_hook(data.window, &events, &data);
 	mlx_hook(data.window, 17, 0, destroy_everything, &data);
+	mlx_key_hook(data.window, &events, &data);
 	mlx_loop(data.mlx);
-	//exit(0);
 }

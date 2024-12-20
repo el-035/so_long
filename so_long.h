@@ -102,6 +102,6 @@ void	print_err(char *error_msg, t_mlx data);
 //free
 void	free_copy(t_path *map, t_mlx data);
 void	free_map(char **map);
-int	destroy_everything(t_mlx data);
+int		destroy_everything(t_mlx *data);
 
 #endif
