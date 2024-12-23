@@ -1,13 +1,25 @@
-#include"so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_validation.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efittant <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/23 15:38:54 by efittant          #+#    #+#             */
+/*   Updated: 2024/12/23 15:38:59 by efittant         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void    line_len_check(t_mlx data)
+#include "so_long.h"
+
+void	line_len_check(t_mlx data)
 {
 	int	i;
-	int len;
+	int	len;
 
 	i = 0;
 	len = 0;
-	while(i < data.l_count)
+	while (i < data.l_count)
 	{
 		if (ft_strchr((const char *) data.map[i], '\n') == NULL)
 			len = ft_strlen((const char *) data.map[i]);
@@ -19,7 +31,7 @@ void    line_len_check(t_mlx data)
 	}
 }
 
-void    wall_check_hor(t_mlx data)
+void	wall_check_hor(t_mlx data)
 {
 	int	j;
 
@@ -31,7 +43,8 @@ void    wall_check_hor(t_mlx data)
 		j++;
 	}
 	j = 0;
-	while (data.map[data.l_count - 1][j] && data.map[data.l_count - 1][j] != '\n')
+	while (data.map[data.l_count - 1][j] && \
+			data.map[data.l_count - 1][j] != '\n')
 	{
 		if (data.map[data.l_count - 1][j] != '1')
 			print_err("Invalid map\n", data);
@@ -39,7 +52,7 @@ void    wall_check_hor(t_mlx data)
 	}
 }
 
-void   wall_check_ver(t_mlx data)	//	chnage to void and put error 
+void	wall_check_ver(t_mlx data)
 {
 	int	i;
 
@@ -59,54 +72,56 @@ void   wall_check_ver(t_mlx data)	//	chnage to void and put error
 	}
 }
 
-void	char_check(t_mlx data)	//	chnage to void and put error 
+void	char_check(t_mlx data)
 {
 	int	i;
 	int	j;
-    int p;
+	int	p;
 
 	i = 0;
-    p = 0;
-	while(i < data.l_count)
+	p = 0;
+	while (i < data.l_count)
 	{
 		j = 0;
-        while (data.map[i][j] && data.map[i][j] != '\n')
+		while (data.map[i][j] && data.map[i][j] != '\n')
 		{
-			if (data.map[i][j] != '1' && data.map[i][j] != '0' && data.map[i][j] != 'P' && data.map[i][j] != 'C' && data.map[i][j] != 'E')
+			if (data.map[i][j] != '1' && data.map[i][j] != '0' && \
+					data.map[i][j] != 'P' && data.map[i][j] != 'C' && \
+					data.map[i][j] != 'E')
 				print_err("Invalid map\n", data);
-            if (data.map[i][j] == 'P')
-                p++;
+			if (data.map[i][j] == 'P')
+				p++;
 			j++;
 		}
 		i++;
 	}
-    if (p != 1)
-        print_err("Invalid map\n", data);
+	if (p != 1)
+		print_err("Invalid map\n", data);
 }
 
-void more_char_check(t_mlx data)
+void	more_char_check(t_mlx data)
 {
 	int	i;
 	int	j;
-    int c;
-    int e;
+	int	c;
+	int	e;
 
 	i = 0;
-    c = 0;
-    e = 0;
-	while(i < data.l_count)
+	c = 0;
+	e = 0;
+	while (i < data.l_count)
 	{
 		j = 0;
-        while (data.map[i][j] && data.map[i][j] != '\n')
+		while (data.map[i][j] && data.map[i][j] != '\n')
 		{
 			if (data.map[i][j] == 'E')
-                e++;
-            if (data.map[i][j] == 'C')
-                c++;
+				e++;
+			if (data.map[i][j] == 'C')
+				c++;
 			j++;
 		}
 		i++;
 	}
-    if (e != 1 || c < 1)
-        print_err("Invalid map\n", data);
+	if (e != 1 || c < 1)
+		print_err("Invalid map\n", data);
 }

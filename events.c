@@ -1,9 +1,21 @@
-#include"so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   events.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efittant <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/23 15:37:52 by efittant          #+#    #+#             */
+/*   Updated: 2024/12/23 15:37:58 by efittant         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
 
 void	move_up(t_mlx *data)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = (data->y_char / 48) - 1;
 	x = data->x_char / 48;
@@ -13,16 +25,18 @@ void	move_up(t_mlx *data)
 		return (end_of_game(data));
 	if (data->map[y][x] == '1')
 		return ;
-	mlx_put_image_to_window(data->mlx, data->window, data->backgroung, data->x_char, data->y_char);
+	mlx_put_image_to_window(data->mlx, data->window, data->backgroung, \
+			data->x_char, data->y_char);
 	ft_printf("moves: %d\n", data->moves++);
 	data->y_char = data->y_char - 48;
-	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, data->x_char, data->y_char);
+	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, \
+			data->x_char, data->y_char);
 }
 
 void	move_down(t_mlx *data)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = (data->y_char / 48) + 1;
 	x = data->x_char / 48;
@@ -32,16 +46,18 @@ void	move_down(t_mlx *data)
 		return (end_of_game(data));
 	if (data->map[y][x] == '1')
 		return ;
-	mlx_put_image_to_window(data->mlx, data->window, data->backgroung, data->x_char, data->y_char);
+	mlx_put_image_to_window(data->mlx, data->window, data->backgroung, \
+			data->x_char, data->y_char);
 	ft_printf("moves: %d\n", data->moves++);
 	data->y_char = data->y_char + 48;
-	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, data->x_char, data->y_char);
+	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, \
+			data->x_char, data->y_char);
 }
 
 void	move_right(t_mlx *data)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = data->y_char / 48;
 	x = (data->x_char / 48) + 1;
@@ -51,16 +67,18 @@ void	move_right(t_mlx *data)
 		return (end_of_game(data));
 	if (data->map[y][x] == '1')
 		return ;
-	mlx_put_image_to_window(data->mlx, data->window, data->backgroung, data->x_char, data->y_char);
-	ft_printf("moves: %d\n", data->moves++);	
+	mlx_put_image_to_window(data->mlx, data->window, data->backgroung, \
+			data->x_char, data->y_char);
+	ft_printf("moves: %d\n", data->moves++);
 	data->x_char = data->x_char + 48;
-	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, data->x_char, data->y_char);
+	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, \
+			data->x_char, data->y_char);
 }
 
 void	move_left(t_mlx *data)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = data->y_char / 48;
 	x = (data->x_char / 48) - 1;
@@ -70,13 +88,15 @@ void	move_left(t_mlx *data)
 		return (end_of_game(data));
 	if (data->map[y][x] == '1')
 		return ;
-	mlx_put_image_to_window(data->mlx, data->window, data->backgroung, data->x_char, data->y_char);
+	mlx_put_image_to_window(data->mlx, data->window, data->backgroung, \
+			data->x_char, data->y_char);
 	ft_printf("moves: %d\n", data->moves++);
 	data->x_char = data->x_char - 48;
-	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, data->x_char, data->y_char);
+	mlx_put_image_to_window(data->mlx, data->window, data->shroom_image, \
+			data->x_char, data->y_char);
 }
 
-int events(int key, t_mlx *data)
+int	events(int key, t_mlx *data)
 {
 	if (key == 65307)
 		destroy_everything(data);

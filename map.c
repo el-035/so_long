@@ -1,55 +1,49 @@
-#include"so_long.h"
-#include <stdio.h>
-//first get number of lines (close and open file again)		/done
-//convert map into a 2d array								/done
-	//remove nl at the end of each line						necessary?? would help fix the issue when map has no nl at the end
-//validate map
-	//only valid charachters
-	//all lines same len									/done
-	//walls around
-	//valid path (flood fill??)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efittant <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/23 15:38:36 by efittant          #+#    #+#             */
+/*   Updated: 2024/12/23 15:38:38 by efittant         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	line_count(int fd, t_mlx data)	
+#include "so_long.h"
+
+int	line_count(int fd, t_mlx data)
 {
 	char	*line;
-	
+
 	data.l_count = 0;
 	line = get_next_line(fd);
 	if (!line)
 		errors("Allocation failed", data);
-	while(line != NULL)
+	while (line != NULL)
 	{
 		free(line);
 		data.l_count++;
 		line = get_next_line(fd);
 		if (!line)
-			break ;			//???
+			break ;
 	}
 	return (free (line), data.l_count);
 }
-/* int	line_count(int fd)
-{
-	int lc;
 
-    lc = 0;
-	while(get_next_line(fd) != NULL)
-		lc++;
-	return (lc);
-} */
-
-char **convert_map(int fd, t_mlx data)
+char	**convert_map(int fd, t_mlx data)
 {
 	int	i;
 
 	i = 0;
-	data.map = (char**)malloc((data.l_count + 1) * sizeof(char *));
+	data.map = (char **)malloc((data.l_count + 1) * sizeof(char *));
 	if (!data.map)
 		errors("Allocation failed", data);
-	while(i < data.l_count)
+	while (i < data.l_count)
 	{
 		data.map[i] = get_next_line(fd);
 		if (!data.map[i])
-		{           
+		{
 			while (i >= 0)
 				free (data.map[--i]);
 			free(data.map);
@@ -66,12 +60,15 @@ void	validation(t_mlx data)
 {
 	line_len_check(data);
 	wall_check_hor(data);
-    char_check(data);
-    more_char_check(data);
-    wall_check_ver(data);
-    path_validation(data);
+	char_check(data);
+	more_char_check(data);
+	wall_check_ver(data);
+	path_validation(data);
+	if (data.l_len > 40 || data.l_count > 20)
+		errors("Map is too big", data);
 }
-int line_len(t_mlx data)
+
+int	line_len(t_mlx data)
 {
 	if (ft_strchr((const char *) data.map[0], '\n') == NULL)
 		data.l_len = ft_strlen((const char *) data.map[0]);
@@ -86,7 +83,7 @@ t_mlx	map(t_mlx data, char *map_file)
 
 	fd = open(map_file, O_RDONLY);
 	if (fd <= 0)
-        errors("Error opening map", data);
+		errors("Error opening map", data);
 	data.l_count = line_count(fd, data);
 	if (data.l_count == 0)
 		print_err("Invalid map\n", data);

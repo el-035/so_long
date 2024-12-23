@@ -1,18 +1,28 @@
-# ifndef SO_LONG_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efittant <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/23 15:40:06 by efittant          #+#    #+#             */
+/*   Updated: 2024/12/23 15:40:08 by efittant         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef SO_LONG_H
 # define SO_LONG_H
 
 //all stuff to include
-#include <stdlib.h>
-#include <errno.h>
-#include <stdio.h>
-#include <mlx.h>
-//#include "minilibx-linux/mlx.h" //delete and put the previous one
-#include <math.h>			   //never used
-#include <unistd.h>
-#include <fcntl.h>		  //??
-#include "libft/libft.h"
-#include "gnl/get_next_line.h"
-#include "ft_printf/ft_printf.h"
+# include <stdlib.h>
+# include <errno.h>
+# include <stdio.h>
+# include <mlx.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include "libft/libft.h"
+# include "gnl/get_next_line.h"
+# include "ft_printf/ft_printf.h"
 
 typedef struct s_path
 {
@@ -29,7 +39,7 @@ typedef struct s_mlx
 	int		l_count;
 	int		l_len;
 	void	*shroom_image;
-	void 	*backgroung;
+	void	*backgroung;
 	void	*obstacle;
 	void	*end_closed;
 	void	*end_open;
@@ -43,9 +53,8 @@ typedef struct s_mlx
 	int		y_end;
 	int		collectible_count;
 	int		c_flag;
-	t_path * path;
+	t_path	*path;
 }			t_mlx;
-
 
 //all function prototypes
 //main
@@ -54,7 +63,8 @@ void	map_input(char *map_file);
 //window
 t_mlx	initialise_stuff(t_mlx data);
 void	background_grass(t_mlx data);
-t_mlx   save_images(t_mlx data);
+t_mlx	save_images(t_mlx data);
+t_mlx	save_more_images(t_mlx data);
 
 //events
 int		events(int key, t_mlx *data);
@@ -65,9 +75,9 @@ void	move_up(t_mlx *data);
 
 //map
 t_mlx	map(t_mlx data, char *map_file);
-int 	line_len(t_mlx data);
+int		line_len(t_mlx data);
 void	validation(t_mlx data);
-char 	**convert_map(int fd, t_mlx data);
+char	**convert_map(int fd, t_mlx data);
 int		line_count(int fd, t_mlx data);
 
 //map validation
@@ -76,7 +86,6 @@ void	wall_check_ver(t_mlx data);
 void	char_check(t_mlx data);
 void	line_len_check(t_mlx data);
 void	more_char_check(t_mlx data);
-
 
 //path validation
 char	**copy_map(t_mlx data);
@@ -94,7 +103,6 @@ void	parsing_conditions(t_mlx *data, int x, int y);
 //game rules
 void	collectibles(t_mlx *data, int x, int y);
 void	end_of_game(t_mlx *data);
-//int		close_everything(t_mlx *data);
 
 //error
 void	errors(char *error_msg, t_mlx data);

@@ -1,46 +1,73 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   window.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efittant <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/23 15:39:14 by efittant          #+#    #+#             */
+/*   Updated: 2024/12/23 15:39:17 by efittant         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-t_mlx   save_images(t_mlx data)
+t_mlx	save_more_images(t_mlx data)
 {
-    int height;
-    int width;
+	int	height;
+	int	width;
 
-    data.backgroung = mlx_xpm_file_to_image(data.mlx, "images/Grass.xpm", &width, &height);
-    if (!data.backgroung)
-		destroy_everything(&data);
-    data.shroom_image = mlx_xpm_file_to_image(data.mlx, "images/shroomie.xpm", &width, &height);
-	if (!data.shroom_image)
-		destroy_everything(&data);
-    data.obstacle = mlx_xpm_file_to_image(data.mlx, "images/obstacle.xpm", &width, &height);
-	if (!data.obstacle)
-		destroy_everything(&data);
-    data.end_open = mlx_xpm_file_to_image(data.mlx, "images/open_chest.xpm", &width, &height);
+	data.end_open = mlx_xpm_file_to_image(data.mlx, "images/open_chest.xpm", \
+						&width, &height);
 	if (!data.end_open)
 		destroy_everything(&data);
-    data.end_closed = mlx_xpm_file_to_image(data.mlx, "images/closed_chest.xpm", &width, &height);
+	data.end_closed = mlx_xpm_file_to_image(data.mlx, \
+						"images/closed_chest.xpm", &width, &height);
 	if (!data.end_closed)
 		destroy_everything(&data);
-    data.collectible = mlx_xpm_file_to_image(data.mlx, "images/key.xpm", &width, &height);
-    if (!data.collectible)
+	data.collectible = mlx_xpm_file_to_image(data.mlx, "images/key.xpm", \
+						&width, &height);
+	if (!data.collectible)
 		destroy_everything(&data);
 	return (data);
 }
 
-void background_grass(t_mlx data)
+t_mlx	save_images(t_mlx data)
 {
-	int width;
-    int height;
+	int	height;
+	int	width;
 
-	height = 0;    
-    while (height < (data.l_count * data.tile_height))
+	data.backgroung = mlx_xpm_file_to_image(data.mlx, "images/Grass.xpm", \
+						&width, &height);
+	if (!data.backgroung)
+		destroy_everything(&data);
+	data.shroom_image = mlx_xpm_file_to_image(data.mlx, "images/shroomie.xpm", \
+						&width, &height);
+	if (!data.shroom_image)
+		destroy_everything(&data);
+	data.obstacle = mlx_xpm_file_to_image(data.mlx, "images/obstacle.xpm", \
+						&width, &height);
+	if (!data.obstacle)
+		destroy_everything(&data);
+	return (data);
+}
+
+void	background_grass(t_mlx data)
+{
+	int	width;
+	int	height;
+
+	height = 0;
+	while (height < (data.l_count * data.tile_height))
 	{
 		width = 0;
-		while(width < (data.l_len * data.tile_width))
-        {
-			mlx_put_image_to_window(data.mlx, data.window, data.backgroung, width, height);
-            width += data.tile_width;
-        }
-        height += data.tile_height;
+		while (width < (data.l_len * data.tile_width))
+		{
+			mlx_put_image_to_window(data.mlx, data.window, data.backgroung, \
+			width, height);
+			width += data.tile_width;
+		}
+		height += data.tile_height;
 	}
 }
 
@@ -49,7 +76,7 @@ t_mlx	initialise_stuff(t_mlx data)
 	data.tile_width = 48;
 	data.tile_height = 48;
 	data.moves = 1;
-    data.collectible_count = 0;
+	data.collectible_count = 0;
 	data.window = NULL;
 	data.shroom_image = NULL;
 	data.backgroung = NULL;
