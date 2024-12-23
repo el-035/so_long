@@ -43,12 +43,7 @@ char	**convert_map(int fd, t_mlx data)
 	{
 		data.map[i] = get_next_line(fd);
 		if (!data.map[i])
-		{
-			while (i >= 0)
-				free (data.map[--i]);
-			free(data.map);
 			errors("Allocation failed", data);
-		}
 		i++;
 	}
 	data.map[i] = NULL;
