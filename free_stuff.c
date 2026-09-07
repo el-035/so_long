@@ -27,7 +27,7 @@ void	free_map(char **map)
 	int	i;
 
 	i = 0;
-	while (map[i])
+	while (map && map[i])
 		free(map[i++]);
 	free(map);
 	map = NULL;

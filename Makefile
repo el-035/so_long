@@ -2,7 +2,7 @@ CC = cc
 
 CFILES = main.c events.c map.c path_validation.c window.c map_validation.c map_parsing.c game_rules.c error.c free_stuff.c
 FT_PRINTF_FILES = ft_printf/ft_printf.c ft_printf/ft_printmore.c ft_printf/ft_printstuff.c 
-GNL_FILES = gnl/get_next_line.c gnl/get_next_line_utils.c
+#GNL_FILES = gnl/get_next_line.c gnl/get_next_line_utils.c
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_MAKEFILE = $(LIBFT_DIR)/Makefile
@@ -11,13 +11,13 @@ LIBFT_MAKEFILE = $(LIBFT_DIR)/Makefile
 OFILES = $(CFILES:.c=.o)
 
 FT_PRINTF_OFILES = $(FT_PRINTF_FILES:.c=.o)
-GNL_OFILES = $(GNL_FILES:.c=.o)
+#GNL_OFILES = $(GNL_FILES:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-MLX = -lmlx -lXext -lX11
+MLX = -I./minilibx-linux -L./minilibx-linux -lmlx -lXext -lX11
 FT_PRINTF = -I./ft_printf
-GNL = -I./gnl
+#GNL = -I./gnl
 
 
 NAME = so_long
@@ -33,12 +33,12 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 #flags rcs: r adds o files to archive, c creates the archive if it doesnt exist yet, s for the index
-$(NAME): $(OFILES) $(FT_PRINTF_OFILES) $(GNL_OFILES) $(LIBFT)
-	$(CC) $(OFILES) $(FT_PRINTF_OFILES) $(GNL_OFILES) $(LIBFT) $(MLX) -o $(NAME)
+$(NAME): $(OFILES) $(FT_PRINTF_OFILES) $(LIBFT)
+	$(CC) $(OFILES) $(FT_PRINTF_OFILES) $(LIBFT) $(MLX) -o $(NAME)
 
 #gets rid of all o files after creating application
 clean:
-	rm -f $(OFILES) $(FT_PRINTF_OFILES) $(GNL_OFILES)
+	rm -f $(OFILES) $(FT_PRINTF_OFILES)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 #removes o files and library

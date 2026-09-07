@@ -17,11 +17,12 @@
 # include <stdlib.h>
 # include <errno.h>
 # include <stdio.h>
-# include <mlx.h>
+//# include <mlx.h>
+# include "minilibx-linux/mlx.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include "libft/libft.h"
-# include "gnl/get_next_line.h"
+//# include "gnl/get_next_line.h"
 # include "ft_printf/ft_printf.h"
 
 typedef struct s_path

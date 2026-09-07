@@ -5,7 +5,7 @@ static char * shroomie_xpm[] = {
 ".	c #4E8400",
 "+	c #C1F27A",
 "@	c #9FDF5B",
-"#	c #FFFFFF",
+"#	c #81BA44",
 "$	c #751C1C",
 "%	c #D23232",
 "&	c #FCF2DE",
