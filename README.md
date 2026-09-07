@@ -4,6 +4,8 @@
 curriculum. Guide the mushroom through the map, collect every key, and reach the
 chest using as few moves as possible.
 
+![so_long gameplay](So_long_Screenshot.png)
+
 ## Gameplay
 
 - Move with `W`, `A`, `S`, `D` or the arrow keys.
