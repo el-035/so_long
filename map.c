@@ -90,6 +90,7 @@ t_mlx	map(t_mlx data, char *map_file)
 		close (fd);
 		errors("Allocation failed", data);
 	}
+	close(fd);
 	data.l_len = line_len(data);
 	validation(data);
 	return (data);

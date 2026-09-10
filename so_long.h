@@ -17,12 +17,11 @@
 # include <stdlib.h>
 # include <errno.h>
 # include <stdio.h>
-//# include <mlx.h>
-# include "minilibx-linux/mlx.h"
+# include <mlx.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include "libft/libft.h"
-//# include "gnl/get_next_line.h"
+# include "libft/get_next_line.h"
 # include "ft_printf/ft_printf.h"
 
 typedef struct s_path
@@ -89,7 +88,7 @@ void	line_len_check(t_mlx data);
 void	more_char_check(t_mlx data);
 
 //path validation
-char	**copy_map(t_mlx data);
+t_path	copy_map(t_mlx data, t_path *path);
 t_path	find_p(t_mlx data, t_path path);
 void	fill_path(t_mlx data, t_path path, int x, int y);
 void	path_validation(t_mlx data);

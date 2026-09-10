@@ -12,13 +12,12 @@
 
 #include "so_long.h"
 
-char	**copy_map(t_mlx data)
+t_path	copy_map(t_mlx data, t_path *path)
 {
-	char	**map_cpy;
 	int		y;
 
-	map_cpy = (char **) malloc(data.l_count * sizeof(char *));
-	if (!map_cpy)
+	path->map_cpy = (char **) ft_calloc(data.l_count, sizeof(char *));
+	if (!path->map_cpy)
 	{
 		free(data.path);
 		errors("Allocation failed", data);
@@ -26,12 +25,15 @@ char	**copy_map(t_mlx data)
 	y = 0;
 	while (y < data.l_count)
 	{
-		map_cpy[y] = ft_strdup((const char *) data.map[y]);
-		if (!map_cpy[y])
+		path->map_cpy[y] = ft_strdup((const char *) data.map[y]);
+		if (!path->map_cpy[y])
+		{
+			free_copy(path, data);
 			errors("Allocation failed", data);
+		}
 		y++;
 	}
-	return (map_cpy);
+	return (*path);
 }
 
 void	is_valid_path(t_mlx data, t_path *path)
@@ -46,7 +48,6 @@ void	is_valid_path(t_mlx data, t_path *path)
 				path->map_cpy[path->y][path->x] == 'E')
 			{
 				free_copy(path, data);
-				free(path);
 				print_err("Invalid map\n", data);
 			}
 			path->x++;
@@ -96,10 +97,9 @@ void	path_validation(t_mlx data)
 	if (!path)
 		errors("Allocation failed", data);
 	data.path = path;
-	path->map_cpy = copy_map(data);
+	*path = copy_map(data, path);
 	*path = find_p(data, *path);
 	fill_path(data, *path, path->x, path->y);
 	is_valid_path(data, path);
 	free_copy(path, data);
-	free(path);
 }

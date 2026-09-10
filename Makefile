@@ -2,7 +2,6 @@ CC = cc
 
 CFILES = main.c events.c map.c path_validation.c window.c map_validation.c map_parsing.c game_rules.c error.c free_stuff.c
 FT_PRINTF_FILES = ft_printf/ft_printf.c ft_printf/ft_printmore.c ft_printf/ft_printstuff.c 
-#GNL_FILES = gnl/get_next_line.c gnl/get_next_line_utils.c
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_MAKEFILE = $(LIBFT_DIR)/Makefile
@@ -11,13 +10,11 @@ LIBFT_MAKEFILE = $(LIBFT_DIR)/Makefile
 OFILES = $(CFILES:.c=.o)
 
 FT_PRINTF_OFILES = $(FT_PRINTF_FILES:.c=.o)
-#GNL_OFILES = $(GNL_FILES:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-MLX = -I./minilibx-linux -L./minilibx-linux -lmlx -lXext -lX11
+MLX = -lmlx -lXext -lX11
 FT_PRINTF = -I./ft_printf
-#GNL = -I./gnl
 
 
 NAME = so_long
